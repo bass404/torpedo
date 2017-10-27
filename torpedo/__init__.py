@@ -12,3 +12,4 @@ mongodb_client = MongoClient('localhost', 27017)
 
 # Import views at end to avoid cyclic dependency errors
 from torpedo.products import views
+from torpedo.users import views
