@@ -7,14 +7,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <html>
 <head>
+  {% if title %}
   <title>{{title}}</title>
+  {% else %}
+  <title>Torpedo</title>
+  {% endif %}
+
   {% include "base_templates/head.html" %}
 </head>
 <body>
 
   {% include "base_templates/header.html" %}
+
   {% block container %}
   {% endblock %}
+
   {% include "base_templates/footer.html" %}
 
 </body>
