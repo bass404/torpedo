@@ -12,7 +12,7 @@ Flask tutorial
 
 Running Development Server
 ==========================
-- If necessary activate the virtualenv and use one of the following
-	export FLASK_APP=run.py && flask run
-
-	make runserver
+- If necessary, activate the virtualenv and then run either of the following
+> export FLASK_APP=run.py && flask run
+> 
+> make runserver
