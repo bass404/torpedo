@@ -30,12 +30,12 @@
   <div class="container">
     <div class="head-top">
       <div class="logo">
-        <a href="index.html">
+        <a href="{{ url_for('index') }}">
           <img src="{{ url_for('static', filename='images/logo.png') }}" alt=""></a>
       </div>
       <div class=" h_menu4">
         <ul class="memenu skyblue">
-          <li class="active grid"><a class="color8" href="index.html">Home</a></li>
+          <li class="active grid"><a class="color8" href="{{ url_for('index') }}">Home</a></li>
           <li><a class="color1" href="#">Shop</a>
             <div class="mepanel">
               <div class="row">
