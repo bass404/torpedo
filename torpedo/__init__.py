@@ -1,14 +1,20 @@
 from flask import Flask
-from flask_login import LoginManager
-from pymongo import MongoClient
+
+from flask_mongoengine import MongoEngine
+from flask_security import UserMixin, RoleMixin
+from flask_security import Security, MongoEngineUserDatastore
 
 torpedo_app = Flask(__name__, static_url_path='/static')
 torpedo_app.config.from_object('torpedo.config')
 
-login_manager = LoginManager()
-login_manager.init_app(torpedo_app)
+# Create database connection
+mongodb_client = MongoEngine(torpedo_app)
 
-mongodb_client = MongoClient('localhost', 27017)
+from torpedo.users.models import User, Role
+
+# Setup Flask-Security
+user_datastore = MongoEngineUserDatastore(mongodb_client, User, Role)
+security = Security(torpedo_app, user_datastore)
 
 # Import views at end to avoid cyclic dependency errors
 from torpedo.products import views
