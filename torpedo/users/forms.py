@@ -11,3 +11,15 @@ class UserLoginForm(Form):
     # TODO Missing validation for email
     email = StringField()
     password = PasswordField()
+
+
+class UserSignupForm(Form):
+    """
+    Signup form for user
+    """
+
+    first_name = StringField()
+    last_name = StringField()
+    email = StringField()
+    password = PasswordField()
+    confirm_password = PasswordField()
