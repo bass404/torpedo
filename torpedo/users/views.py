@@ -61,7 +61,8 @@ def signup():
         user.save()
 
         # Login user and redirect to index page
-        return redirect(url_for('index'))
+        flash("User created")
+        return redirect(url_for('signup'))
     else:
         return render_template("users/signup.html", form=form)
 
