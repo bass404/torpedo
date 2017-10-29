@@ -6,16 +6,17 @@
     <h1>Account</h1>
     <div class="account-pass">
       <div class="col-md-8 account-top">
-        <form>
+        <form action="{{ url_for('login') }}" method="POST">
+          {{ form.hidden_tag() }}
           <div>
             <span>Email</span>
-            <input type="text">
+            <input type="text" name="email">
           </div>
           <div>
             <span >Password</span>
-            <input type="password">
+            <input type="password" name="password">
           </div>
-          <input type="submit" value="Login">
+          <input type="submit" value="Submit">
         </form>
       </div>
       <div class="col-md-4 left-account ">
