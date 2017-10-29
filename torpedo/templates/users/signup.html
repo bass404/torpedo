@@ -4,7 +4,9 @@
 <div class=" container">
   <div class=" register">
     <h1>Register</h1>
-    <form action="{{ url_for('signup') }}">
+    {% include "form_messages.html" %}
+    <form action="{{ url_for('signup') }}" method="POST">
+      {{ form.hidden_tag() }}
       <div class="col-md-6 register-top-grid">
         <h3>Personal infomation</h3>
         <div>
@@ -20,8 +22,8 @@
           <input type="text" name="email">
         </div>
         <!-- <a class="news-letter" href="#"> -->
-        <!--   <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label> -->
-        <!-- </a> -->
+          <!--   <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label> -->
+          <!-- </a> -->
       </div>
       <div class="col-md-6 register-bottom-grid">
         <h3>Login information</h3>
