@@ -32,6 +32,9 @@ def login():
             # Login user
             login_user(user)
             return redirect(url_for("index"))
+        else:
+            flash("Invalid login")
+            return redirect(url_for("login"))
     else:
         return render_template("users/login.html", form=form)
 

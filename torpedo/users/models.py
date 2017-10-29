@@ -35,6 +35,4 @@ class User(Document):
         """
         Verify if password if correct
         """
-
-        password_hash = hash_password(password)
-        return pbkdf2_sha256.verify(password, password_hash)
+        return pbkdf2_sha256.verify(password, self.password)
