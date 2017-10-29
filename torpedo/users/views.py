@@ -1,4 +1,9 @@
-from flask import render_template, request
+from flask import render_template
 
 from torpedo import torpedo_app
-from torpedo.users import forms as user_forms
+from torpedo import mongodb_client
+
+
+@torpedo_app.route('/login')
+def login():
+    return render_template("users/login.html")
