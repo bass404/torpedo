@@ -1,4 +1,6 @@
-from mongoengine import Document, StringField, EmailField
+from mongoengine import (
+    Document, StringField, EmailField, ReferenceField, CASCADE, DateTimeField
+)
 
 from passlib.hash import pbkdf2_sha256
 
@@ -8,10 +10,21 @@ def hash_password(password):
 
 
 class User(Document):
-    first_name = StringField()
-    last_name = StringField()
+    """
+    Main user model to use for authentication and login
+    """
     email = EmailField(required=True, unique=True)
     password = StringField(required=True)
+
+    first_name = StringField()
+    last_name = StringField()
+    phone = StringField()
+    date_of_birth = DateTimeField()
+    gender_choices = (
+        ("M", "Male"),
+        ("F", "Female")
+    )
+    gender = StringField(max_length=1, choices=gender_choices)
 
     @property
     def is_active(self):
@@ -36,3 +49,47 @@ class User(Document):
         Verify if password if correct
         """
         return pbkdf2_sha256.verify(password, self.password)
+
+
+class UserRole(Document):
+    """
+    Model for user roles
+    """
+    ROLE_ADMIN = "A"
+    ROLE_CUSTOMER = "C"
+    role_type_choices = (
+        (ROLE_ADMIN, "Admin"),
+        (ROLE_CUSTOMER, "Customer")
+    )
+
+    role_type = StringField(
+        max_length=1,
+        choices=role_type_choices,
+        required=True,
+        default=ROLE_CUSTOMER
+    )
+    user_id = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
+
+    ROLE_ACTIVE = "A"
+    ROLE_INACTIVE = "I"
+    status_choices = (
+        (ROLE_ACTIVE, "Active"),
+        (ROLE_INACTIVE, "Inactive")
+    )
+    status = StringField(
+        max_length=1, choices=status_choices, default=ROLE_ACTIVE)
+
+
+class UserAddress(Document):
+    """
+    Address for user
+    """
+
+    user_id = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
+    address = StringField(required=True)
+    address_1 = StringField()
+    address_2 = StringField()
+    city = StringField(required=True)
+    state = StringField()
+    zipcode = StringField()
+    country = StringField(required=True)
