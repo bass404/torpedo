@@ -1,2 +1,2 @@
 runserver:
-	export FLASK_APP=run.py && flask run
+	export FLASK_APP=run.py && python3 -m flask
