@@ -1,7 +1,7 @@
 import urllib
 
 from flask import render_template, request, flash, redirect, url_for, abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from torpedo import torpedo_app
 
@@ -10,6 +10,7 @@ from torpedo.users.forms import UserAddressForm
 
 
 @torpedo_app.route("/user/address", methods=["GET", "POST"])
+@login_required
 def user_address_views():
     form = UserAddressForm()
     if form.validate_on_submit():

@@ -8,6 +8,7 @@ torpedo_app.config.from_object('torpedo.config')
 
 login_manager = LoginManager()
 login_manager.init_app(torpedo_app)
+login_manager.login_view = "login"
 
 # Connect to MongoDB
 connect(
