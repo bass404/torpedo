@@ -18,3 +18,4 @@ connect(
 # Import views at end to avoid cyclic dependency errors
 from torpedo.base import views as base_views
 from torpedo.users import views as user_views
+from torpedo.products import views as product_views
