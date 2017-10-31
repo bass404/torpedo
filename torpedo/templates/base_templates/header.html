@@ -17,6 +17,7 @@
         </ul>
         {% else %}
         <ul>
+          <li><a href="{{ url_for('user_setting_view') }}">Settings</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
         <div class="cart box_1">
