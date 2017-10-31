@@ -5,7 +5,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 from torpedo import torpedo_app, login_manager
 
-from torpedo.users.models import User, hash_password, UserAddress
+from torpedo.users.models import User, hash_password, UserRole, UserAddress
 from torpedo.users.forms import UserLoginForm, UserSignupForm, UserAddressForm
 
 
@@ -64,6 +64,10 @@ def signup():
         user.first_name = form.data["first_name"]
         user.last_name = form.data["last_name"]
         user.save()
+
+        # Create a role for user
+        user_role = UserRole(user_id=user.id)
+        user_role.save()
 
         # Login user and redirect to index page
         flash("User created")
