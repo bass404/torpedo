@@ -138,8 +138,7 @@ def user_address_views():
         if address_id:
             user_address = UserAddress.objects(id=address_id)[0]
 
-            # TODO Make sure this work as expected
-            if user_address.user_id != current_user.id:
+            if user_address.user_id.id != current_user.id:
                 return abort(404)
 
             form.address_id.data = str(user_address.id)
