@@ -1,6 +1,6 @@
 from flask_wtf import Form
 
-from wtforms import TextField, StringField, PasswordField
+from wtforms import TextField, StringField, PasswordField, HiddenField
 
 
 class UserLoginForm(Form):
@@ -23,3 +23,18 @@ class UserSignupForm(Form):
     email = StringField()
     password = PasswordField()
     confirm_password = PasswordField()
+
+
+class UserAddressForm(Form):
+    """
+    Address form for user
+    """
+    address_id = HiddenField()
+
+    address = StringField()
+    address_1 = StringField()
+    address_2 = StringField()
+    city = StringField()
+    state = StringField()
+    zipcode = StringField()
+    country = StringField()
