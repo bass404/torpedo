@@ -1,6 +1,10 @@
 from flask_wtf import Form
 
-from wtforms import TextField, StringField, PasswordField, HiddenField
+from wtforms import (
+    TextField, StringField, PasswordField, HiddenField, DateField, SelectField
+)
+
+from torpedo.users.models import User
 
 
 class UserLoginForm(Form):
@@ -23,6 +27,18 @@ class UserSignupForm(Form):
     email = StringField()
     password = PasswordField()
     confirm_password = PasswordField()
+
+
+class UserInfoForm(Form):
+    """
+    Form to update the user information
+    """
+
+    first_name = StringField()
+    last_name = StringField()
+    date_of_birth = DateField()
+    gender = SelectField(choices=User.gender_choices)
+    phone = StringField()
 
 
 class UserAddressForm(Form):
