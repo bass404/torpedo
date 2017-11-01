@@ -1,5 +1,3 @@
-import urllib
-
 from flask import render_template, request, flash, redirect, url_for, abort
 from flask_login import current_user, login_required
 
@@ -26,80 +24,80 @@ def user_address_list_view():
     )
 
 
-@torpedo_app.route("/user/address/", methods=["GET", "POST"])
+@torpedo_app.route("/user/address/add", methods=["GET", "POST"])
 @login_required
-def user_address_views():
+def user_address_add_view():
+    """
+    View to add user's address
+    """
+    form = UserAddressForm()
+
+    if request.method == "POST":
+        # Create an address entry for user
+        user_address = UserAddress(
+            user_id=current_user.id,
+            address=form.data["address"],
+            address_1=form.data["address_1"],
+            address_2=form.data["address_2"],
+            city=form.data["city"],
+            state=form.data["state"],
+            zipcode=form.data["zipcode"],
+            country=form.data["country"]
+        )
+
+        # Save user model
+        user_address.save()
+
+        flash("Address Added")
+
+        return redirect(url_for("user_address_list_view"))
+    else:
+        return render_template("users/address/detail.html", form=form, heading="Add address")
+
+
+@torpedo_app.route("/user/address/<address_id>", methods=["GET", "POST"])
+@login_required
+def user_address_detail_view(address_id):
     form = UserAddressForm()
     if request.method == "POST":
         if form.validate_on_submit():
 
-            # Check if address id is provided
-            address_id = form.data["address_id"]
-            if address_id:
+            # Try to retrieve address object
+            user_address = UserAddress.objects(id=str(address_id))[0]
 
-                # Try to retrieve address object
-                user_address = UserAddress.objects(id=str(address_id))[0]
+            # TODO Find a better way to do this
+            user_address.address = form.data["address"]
+            user_address.address_1 = form.data["address_1"]
+            user_address.address_2 = form.data["address_2"]
+            user_address.city = form.data["city"]
+            user_address.state = form.data["state"]
+            user_address.zipcode = form.data["zipcode"]
+            user_address.country = form.data["country"]
 
-                # TODO Find a better way to do this
-                user_address.address = form.data["address"]
-                user_address.address_1 = form.data["address_1"]
-                user_address.address_2 = form.data["address_2"]
-                user_address.city = form.data["city"]
-                user_address.state = form.data["state"]
-                user_address.zipcode = form.data["zipcode"]
-                user_address.country = form.data["country"]
+            # Save address
+            user_address.save()
 
-                # Save address
-                user_address.save()
+            flash("Address Updated")
 
-                flash("Address Updated")
-
-                urlencoded_parameters = urllib.parse.urlencode(
-                    {"address": user_address.id}
-                )
-
-                redirect_url = url_for("user_address_views") + \
-                    "?" + urlencoded_parameters
-                return redirect(redirect_url)
-            else:
-                # Create an address entry for user
-                user_address = UserAddress(
-                    user_id=current_user.id,
-                    address=form.data["address"],
-                    address_1=form.data["address_1"],
-                    address_2=form.data["address_2"],
-                    city=form.data["city"],
-                    state=form.data["state"],
-                    zipcode=form.data["zipcode"],
-                    country=form.data["country"]
-                )
-
-                # Save user model
-                user_address.save()
-
-                flash("Address Added")
-
-                return redirect(url_for("index"))
+            return redirect(url_for(
+                "user_address_detail_view", address_id=address_id
+            ))
         else:
             flash("Form validation error")
             return render_template("users/address/detail.html", form=form, heading="Edit address")
     else:
-        # Check if there is a address id in url
-        address_id = request.args.get("address", "")
+        user_address = UserAddress.objects(id=address_id)[0]
 
-        if address_id:
-            user_address = UserAddress.objects(id=address_id)[0]
+        if user_address.user_id.id != current_user.id:
+            return abort(404)
 
-            if user_address.user_id.id != current_user.id:
-                return abort(404)
-
-            form.address_id.data = str(user_address.id)
-            form.address.data = user_address.address
-            form.address_1.data = user_address.address_1
-            form.address_2.data = user_address.address_2
-            form.city.data = user_address.city
-            form.state.data = user_address.state
-            form.zipcode.data = user_address.zipcode
-            form.country.data = user_address.country
+        form.address_id.data = str(user_address.id)
+        form.address.data = user_address.address
+        form.address_1.data = user_address.address_1
+        form.address_2.data = user_address.address_2
+        form.city.data = user_address.city
+        form.state.data = user_address.state
+        form.zipcode.data = user_address.zipcode
+        form.country.data = user_address.country
 
         return render_template("users/address/detail.html", form=form, heading="Edit address")

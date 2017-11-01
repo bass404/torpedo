@@ -5,7 +5,11 @@
   <div class="col-sm-9">
     <h1>{{ heading }}</h1>
     {% include "form_messages.html" %}
-    <form class="form-horizontal" action="{{url_for('user_address_views')}}" method="POST">
+    {% if form.address_id.data %}
+      <form class="form-horizontal" action="{{url_for('user_address_detail_view', address_id=form.address_id.data)}}" method="POST">
+    {% else %}
+      <form class="form-horizontal" action="{{url_for('user_address_add_view')}}" method="POST">
+    {% endif %}
       {{ form.hidden_tag() }}
       <div class="form-group">
         <div class="col-sm-10">
