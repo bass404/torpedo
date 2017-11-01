@@ -64,7 +64,7 @@ def signup():
         user.save()
 
         # Create a role for user
-        user_role = UserRole(user_id=user.id)
+        user_role = UserRole(user=user.id)
         user_role.save()
 
         # Login user and redirect to index page

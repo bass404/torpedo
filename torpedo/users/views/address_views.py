@@ -15,7 +15,7 @@ def user_address_list_view():
     """
 
     # Obtain the address items for current_user
-    user_addresses = UserAddress.objects(user_id=current_user.id)
+    user_addresses = UserAddress.objects(user=current_user.id)
 
     return render_template(
         "users/address/list.html",
@@ -35,7 +35,7 @@ def user_address_add_view():
     if request.method == "POST":
         # Create an address entry for user
         user_address = UserAddress(
-            user_id=current_user.id,
+            user=current_user.id,
             address=form.data["address"],
             address_1=form.data["address_1"],
             address_2=form.data["address_2"],
@@ -88,7 +88,7 @@ def user_address_detail_view(address_id):
     else:
         user_address = UserAddress.objects(id=address_id)[0]
 
-        if user_address.user_id.id != current_user.id:
+        if user_address.user.id != current_user.id:
             return abort(404)
 
         form.address_id.data = str(user_address.id)

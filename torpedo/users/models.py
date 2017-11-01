@@ -68,7 +68,7 @@ class UserRole(Document):
         required=True,
         default=ROLE_CUSTOMER
     )
-    user_id = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
+    user = ReferenceField(User, reverse_delete_rule=CASCADE, required=True, unique=True)
 
     ROLE_ACTIVE = "A"
     ROLE_INACTIVE = "I"
@@ -85,7 +85,7 @@ class UserAddress(Document):
     Address for user
     """
 
-    user_id = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
+    user = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
     address = StringField(required=True)
     address_1 = StringField()
     address_2 = StringField()
