@@ -3,7 +3,7 @@
 {% block sidebar %}
 <div class="rsidebar span_1_of_left">
   <div class="of-left">
-    <h3 class="cate">Settings</h3>
+    <h3>User</h3>
   </div>
   <ul class="menu">
     <li class="item"><a href="#">User Information</a>
@@ -15,11 +15,18 @@
   </ul>
 </div>
 
+{% if current_user.is_admin %}
 <div class="sellers">
   <div class="of-left-in">
-    <h3 class="tag">Tags</h3>
+    <h3>Admin</h3>
   </div>
-  <div>
-  </div>
+  <ul class="menu">
+    <li class="item"><a href="#">Products</a>
+      <ul>
+        <li class="subitem1"><a href="#">Add Product</a></li>
+      </ul>
+    </li>
+  </ul>
 </div>
+{% endif %}
 {% endblock %}

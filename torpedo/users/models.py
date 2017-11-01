@@ -38,6 +38,19 @@ class User(Document):
     def is_anonymous(self):
         return False
 
+    @property
+    def is_admin(self):
+        """
+        Check and return true if user has an admin role
+        """
+
+        user_role = UserRole.objects(user=self.id)[0]
+
+        if user_role.role_type == UserRole.ROLE_ADMIN:
+            return True
+        else:
+            return False
+
     def get_id(self):
         return str(self.id)
 
