@@ -81,6 +81,6 @@ def user_address_views():
             form.zipcode.data = user_address.zipcode
             form.country.data = user_address.country
 
-            return render_template("users/address.html", form=form, heading="Edit address")
+            return render_template("users/address/detail.html", form=form, heading="Edit address")
 
-        return render_template("users/address.html", form=form, heading="Add address")
+        return render_template("users/address/detail.html", form=form, heading="Add address")
