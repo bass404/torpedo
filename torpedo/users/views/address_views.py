@@ -9,7 +9,24 @@ from torpedo.users.models import UserAddress
 from torpedo.users.forms import UserAddressForm
 
 
-@torpedo_app.route("/user/address", methods=["GET", "POST"])
+@torpedo_app.route("/user/address/list", methods=["GET"])
+@login_required
+def user_address_list_view():
+    """
+    Return the user address list
+    """
+
+    # Obtain the address items for current_user
+    user_addresses = UserAddress.objects(user_id=current_user.id)
+
+    return render_template(
+        "users/address/list.html",
+        addresses=user_addresses,
+        heading="List of addresses"
+    )
+
+
+@torpedo_app.route("/user/address/", methods=["GET", "POST"])
 @login_required
 def user_address_views():
     form = UserAddressForm()
