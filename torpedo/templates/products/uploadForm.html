@@ -1,0 +1,59 @@
+{% extends "base_templates/base.html" %}
+
+{% block container %}
+<title>Upload new Image</title>
+<h1>Upload new Image</h1>
+<!--<form action="" method="post" enctype="multipart/form-data">-->
+  <!--<p><input type="file" name="file">-->
+     <!--<input type="submit" value="Upload">-->
+<!--</form>-->
+<!--{% if upload_result %}-->
+  <!--<h3>Upload API Result</h3>-->
+  <!--<div>{{ upload_result }}</div>-->
+  <!--<h3>Thumbnails:</h3>-->
+  <!--<div><a href="{{thumbnail_url1}}">{{thumbnail_url1}}</a></div>-->
+  <!--<img src="{{ thumbnail_url1 }}"/>-->
+  <!--<div><a href="{{thumbnail_url2}}">{{thumbnail_url2}}</a></div>-->
+  <!--<img src="{{ thumbnail_url2 }}"/>-->
+  <!--<h3>Original:</h3>-->
+  <!--<img src="{{ upload_result['url'] }}"/>-->
+<!--{% endif %}-->
+
+
+
+<style>
+  img{
+  max-width:180px;
+  }
+  input[type=file]{
+  padding:10px;
+  background:#2d2d2d;}
+</style>
+<script>
+
+  function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+
+</script>
+
+
+<input type='file' onchange="readURL(this);" />
+<img id="blah" src="http://placehold.it/180" alt="your image" />
+
+
+
+{% endblock %}
