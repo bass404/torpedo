@@ -68,3 +68,15 @@ def add_category_view():
 
     else:
         return render_template("categories/admin/add.html", form=form, heading="Add category")
+
+
+@torpedo_app.route("/categories/admin/list", methods=["GET"])
+@login_required
+def category_list_view():
+    if not current_user.is_admin:
+        abort(403)
+
+    # Obtain the list of products
+    categories = Category.objects()
+
+    return render_template("categories/admin/list.html", heading="List of categories", categories=categories)
