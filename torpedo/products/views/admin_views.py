@@ -33,6 +33,18 @@ def add_product_view():
         return render_template("products/admin/add.html", form=form, heading="Add product")
 
 
+@torpedo_app.route("/products/admin/list", methods=["GET"])
+@login_required
+def product_list_view():
+    if not current_user.is_admin:
+        abort(403)
+
+    # Obtain the list of products
+    products = Product.objects()
+
+    return render_template("products/admin/list.html", heading="List of products", products=products)
+
+
 @torpedo_app.route("/categories/admin/add", methods=["GET", "POST"])
 @login_required
 def add_category_view():
