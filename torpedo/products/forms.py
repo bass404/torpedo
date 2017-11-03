@@ -5,6 +5,11 @@ from wtforms import TextField, StringField, SelectField
 from torpedo.products.models import Category
 
 
+class CategoryForm(Form):
+    name = StringField()
+    description = TextField()
+
+
 class ProductForm(Form):
     name = StringField()
     description = TextField()
@@ -23,3 +28,5 @@ class ProductForm(Form):
         ]
 
         self.category.choices = category_choices
+
+
