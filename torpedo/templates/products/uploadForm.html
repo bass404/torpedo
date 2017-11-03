@@ -20,39 +20,11 @@
 <!--{% endif %}-->
 
 
+<img id="blah" alt="your image" width="100" height="100" />
 
-<style>
-  img{
-  max-width:180px;
-  }
-  input[type=file]{
-  padding:10px;
-  background:#2d2d2d;}
-</style>
-<script>
+<input type="file"
+    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
 
-  function readURL(input) {
-
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      $('#blah').attr('src', e.target.result);
-    }
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-$("#imgInp").change(function() {
-  readURL(this);
-});
-
-</script>
-
-
-<input type='file' onchange="readURL(this);" />
-<img id="blah" src="http://placehold.it/180" alt="your image" />
 
 
 
