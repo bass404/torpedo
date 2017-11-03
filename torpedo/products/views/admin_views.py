@@ -1,17 +1,16 @@
-from flask import render_template, abort, flash, request, redirect, url_for
-from flask_login import current_user, login_required
+from flask import render_template, flash, request, redirect, url_for
+from flask_login import login_required
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product, Category
 from torpedo.products.forms import ProductForm, CategoryForm
+from torpedo.users.utils import admin_user_required
 
 
 @torpedo_app.route("/products/admin/add", methods=["GET", "POST"])
+@admin_user_required
 @login_required
 def add_product_view():
-    if not current_user.is_admin:
-        abort(403)
-
     form = ProductForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -34,11 +33,9 @@ def add_product_view():
 
 
 @torpedo_app.route("/products/admin/list", methods=["GET"])
+@admin_user_required
 @login_required
 def product_list_view():
-    if not current_user.is_admin:
-        abort(403)
-
     # Obtain the list of products
     products = Product.objects()
 
@@ -46,11 +43,9 @@ def product_list_view():
 
 
 @torpedo_app.route("/categories/admin/add", methods=["GET", "POST"])
+@admin_user_required
 @login_required
 def add_category_view():
-    if not current_user.is_admin:
-        abort(403)
-
     form = CategoryForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -71,11 +66,9 @@ def add_category_view():
 
 
 @torpedo_app.route("/categories/admin/list", methods=["GET"])
+@admin_user_required
 @login_required
 def category_list_view():
-    if not current_user.is_admin:
-        abort(403)
-
     # Obtain the list of products
     categories = Category.objects()
 
