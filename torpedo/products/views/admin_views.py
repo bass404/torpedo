@@ -5,6 +5,8 @@ from torpedo import torpedo_app
 from torpedo.products.models import Product, Category
 from torpedo.products.forms import ProductForm
 
+from cloudinary.uploader import upload
+
 
 @torpedo_app.route("/products/admin/add", methods=["GET", "POST"])
 @login_required
@@ -16,11 +18,16 @@ def add_product_view():
     if request.method == "POST":
         if form.validate_on_submit():
             category = Category.objects(id=form.data["category"])[0]
+            print(request.form.get("images"))
+            image_to_upload = request.form.get("images")
+            if image_to_upload:
+                upload_result = upload(image_to_upload)
 
             product = Product(
                 name=form.data["name"],
                 description=form.data["description"],
-                category=category.id
+                category=category.id,
+                image=upload_result
             )
             product.save()
 
@@ -31,3 +38,4 @@ def add_product_view():
             return render_template("products/admin/add.html", form=form, heading="Add product")
     else:
         return render_template("products/admin/add.html", form=form, heading="Add product")
+
