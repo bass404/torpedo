@@ -13,7 +13,8 @@ def admin_user_required(view_function):
 
     @wraps(view_function)
     def wrapper(*args, **kwargs):
-        if not current_user.is_admin:
+
+        if not getattr(current_user, "is_admin", False):
             abort(403)
 
         return view_function(*args, **kwargs)
