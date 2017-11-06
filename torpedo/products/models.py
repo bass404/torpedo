@@ -12,6 +12,7 @@ class Product(Document):
     name = StringField()
     description = StringField()
     category = ReferenceField("products.Category", reverse_delete_rule=CASCADE)
+    image = StringField()
 
 
 class ProductAttribute(Document):
@@ -24,3 +25,4 @@ class ProductAttribute(Document):
     price = FloatField()
     discount = FloatField()
     stock = IntField()
+
