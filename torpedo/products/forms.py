@@ -13,12 +13,10 @@ class CategoryForm(Form):
 class ProductForm(Form):
     name = StringField()
     description = TextField()
-    category = SelectField(choices=[('test', 'test 1')])
+    category = SelectField(choices=[])
 
     def __init__(self):
         super().__init__()
-
-        # TODO verify if this works as expected
 
         # Obtain choices for categories
         categories = Category.objects()
@@ -28,5 +26,3 @@ class ProductForm(Form):
         ]
 
         self.category.choices = category_choices
-
-
