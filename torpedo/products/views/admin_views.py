@@ -11,8 +11,8 @@ from cloudinary.utils import cloudinary_url
 
 
 @torpedo_app.route("/products/admin/add", methods=["GET", "POST"])
-@admin_user_required
 @login_required
+@admin_user_required
 def add_product_view():
     upload_result = None
     thumbnail_url1 = None
@@ -53,8 +53,8 @@ def add_product_view():
 
 
 @torpedo_app.route("/products/admin/list", methods=["GET"])
-@admin_user_required
 @login_required
+@admin_user_required
 def product_list_view():
     # Obtain the list of products
     products = Product.objects()
@@ -63,8 +63,8 @@ def product_list_view():
 
 
 @torpedo_app.route("/categories/admin/add", methods=["GET", "POST"])
-@admin_user_required
 @login_required
+@admin_user_required
 def add_category_view():
     form = CategoryForm()
     if request.method == "POST":
@@ -86,8 +86,8 @@ def add_category_view():
 
 
 @torpedo_app.route("/categories/admin/list", methods=["GET"])
-@admin_user_required
 @login_required
+@admin_user_required
 def category_list_view():
     # Obtain the list of products
     categories = Category.objects()
