@@ -19,23 +19,11 @@
 <div class="col-md-5 single-top">
   <div class="flexslider">
     <ul class="slides">
-      <li data-thumb="{{ url_for('static', filename='images/si.jpg') }}">
-        <img class="img-responsive" src="{{ url_for('static', filename='images/si.jpg') }}">
+
+      <li data-thumb="{{ product.get_image_url }}">
+        <img class="img-responsive" src="{{ product.get_image_url }}" alt="">
       </li>
 
-      <li data-thumb="{{ url_for('static', filename='images/si1.jpg') }}">
-        <img class="img-responsive" src="{{ url_for('static', filename='images/si1.jpg') }}">
-      </li>
-
-
-      <li data-thumb="{{ url_for('static', filename='images/si2.jpg') }}">
-        <img class="img-responsive" src="{{ url_for('static', filename='images/si2.jpg') }}">
-      </li>
-
-
-      <li data-thumb="{{ url_for('static', filename='images/si.jpg') }}">
-        <img class="img-responsive" src="{{ url_for('static', filename='images/si.jpg') }}">
-      </li>
     </ul>
   </div>
 </div>
@@ -43,7 +31,7 @@
 
 <div class="col-md-7 single-top-in simpleCart_shelfItem">
   <div class="single-para">
-    <h4>Lorem Ipsum</h4>
+    <h4>{{product.name}}</h4>
 
 
     <div class="star-on">
@@ -74,20 +62,15 @@
       </ul>
 
 
-      <div class="review">
-        <a href="#">1 customer review</a>
-      </div>
-
-
       <div class="clearfix">
       </div>
     </div>
 
 
-    <h5 class="item_price">$ 95.00</h5>
+    <h5 class="item_price">$ {{product.get_Price}}</h5>
 
 
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+    <p>{{product.description}}</p>
 
 
     <div class="available">

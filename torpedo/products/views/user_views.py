@@ -11,6 +11,8 @@ def products_list_view():
         return render_template("products/list.html",heading="List of products", products=products)
 
 
-@torpedo_app.route("/products/detail", methods=["GET"])
-def product_detail_view():
-    return render_template("products/detail.html")
+@torpedo_app.route("/products/detail/<product_id>", methods=["GET","POST"])
+def product_detail_view(product_id):
+    product = Product.objects(id=product_id).first()
+
+    return render_template("products/detail.html",product=product)
