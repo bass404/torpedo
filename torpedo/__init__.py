@@ -1,7 +1,10 @@
+import os
 from flask import Flask
 from flask_login import LoginManager
 
 from mongoengine import connect
+
+os.environ['CLOUDINARY_URL'] = "cloudinary://437924985166772:K17WhzU70_x35oZKz8f1Reow7yU@dos7zqrjl"
 
 torpedo_app = Flask(__name__, static_url_path='/static')
 torpedo_app.config.from_object('torpedo.config')
