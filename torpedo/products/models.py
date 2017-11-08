@@ -3,6 +3,8 @@ from mongoengine import (
     FloatField, IntField, EmbeddedDocumentListField, SequenceField
 )
 
+import cloudinary
+
 
 class Category(Document):
     name = StringField()
@@ -24,6 +26,14 @@ class ProductAttribute(EmbeddedDocument):
     price = FloatField()
     discount = FloatField()
     stock = IntField()
+
+    @property
+    def get_image_url(self):
+        return cloudinary.utils.cloudinary_url(
+            self.image,
+            width=50,
+            height=50
+        )[0]
 
 
 class Product(Document):
