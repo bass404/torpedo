@@ -29,11 +29,7 @@ class ProductAttribute(EmbeddedDocument):
 
     @property
     def get_image_url(self):
-        return cloudinary.utils.cloudinary_url(
-            self.image,
-            width=50,
-            height=50
-        )[0]
+        return cloudinary.utils.cloudinary_url(self.image)[0]
 
 
 class Product(Document):
@@ -78,5 +74,3 @@ class Product(Document):
 
         attribute = self.attributes[0]
         return attribute.get_image_url
-
-
