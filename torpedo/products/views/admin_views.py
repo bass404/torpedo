@@ -1,9 +1,9 @@
-from flask import render_template, flash, request, redirect, url_for
+from flask import render_template, flash, request, redirect, url_for, abort
 from flask_login import login_required
 
 from torpedo import torpedo_app
-from torpedo.products.models import Product, Category
-from torpedo.products.forms import ProductForm, CategoryForm
+from torpedo.products.models import Product, Category, ProductAttribute
+from torpedo.products.forms import ProductForm, CategoryForm, ProductAttributeForm
 from torpedo.users.utils import admin_user_required
 
 from cloudinary.uploader import upload
@@ -14,31 +14,18 @@ from cloudinary.utils import cloudinary_url
 @login_required
 @admin_user_required
 def add_product_view():
-    upload_result = None
-    thumbnail_url1 = None
-    thumbnail_url2 = None
     form = ProductForm()
     if request.method == "POST":
 
-        # TODO Fix this
-        # if form.validate_on_submit():
-        file_to_upload = request.files['file']
-        if file_to_upload:
-            upload_result = upload(file_to_upload)
-            thumbnail_url1, options = cloudinary_url(upload_result['public_id'], format="jpg",
-                                                     crop="fill", width=100,
-                                                     height=100)
-            thumbnail_url2, options = cloudinary_url(upload_result['public_id'], format="jpg",
-                                                     crop="fill", width=200,
-                                                     height=100, radius=20, effect="sepia")
+        if form.validate_on_submit():
 
+            # TODO Find if there is an alternative
             category = Category.objects(id=form.data["category"])[0]
 
             product = Product(
                 name=form.data["name"],
                 description=form.data["description"],
-                category=category.id,
-                image=upload_result.get("secure_url", "")
+                category=category.id
             )
             product.save()
 
@@ -46,8 +33,7 @@ def add_product_view():
             return redirect(url_for('user_setting_view'))
         else:
             flash("Form validation error")
-            return render_template("products/admin/add.html", form=form, heading="Add product", upload_result=upload_result, thumbnail_url1=thumbnail_url1,
-                                   thumbnail_url2=thumbnail_url2)
+            return render_template("products/admin/add.html", form=form, heading="Add product")
     else:
         return render_template("products/admin/add.html", form=form, heading="Add product")
 
@@ -60,6 +46,100 @@ def product_list_view():
     products = Product.objects()
 
     return render_template("products/admin/list.html", heading="List of products", products=products)
+
+
+@torpedo_app.route("/products/attributes/admin/add/<product_id>", methods=["GET", "POST"])
+@login_required
+@admin_user_required
+def product_attributes_add_view(product_id):
+    # Check if product with the given id exists
+    product = Product.objects(id=product_id)[0]
+
+    form = ProductAttributeForm()
+
+    if not product:
+        abort(404)
+
+    if request.method == "POST":
+
+        if form.validate_on_submit():
+
+            # Upload the image to cloudinary
+            file_to_upload = request.files['image']
+
+            upload_result = upload(file_to_upload)
+
+            product_attribute = ProductAttribute(
+                size=form.data["size"],
+                color=form.data["color"],
+                image=upload_result.get("secure_url", ""),
+                price=form.data["price"],
+                discount=form.data["discount"],
+                stock=form.data["stock"]
+            )
+
+            product_attribute.save()
+
+            flash("Product attribute added")
+            return redirect(url_for("product_update_view", product_id=product.id))
+
+        else:
+            flash("Form validation error")
+            return render_template("products/attributes/admin/add.html", product=product, form=form)
+
+    else:
+        return render_template("products/attributes/admin/add.html", product=product, form=form)
+
+
+@torpedo_app.route("/products/admin/update/<product_id>", methods=["GET", "POST"])
+@login_required
+@admin_user_required
+def product_update_view(product_id):
+
+    # Check if product with the given id exists
+    product = Product.objects(id=product_id)[0]
+    if not product:
+        abort(404)
+
+    form = ProductForm()
+
+    if request.method == "POST":
+
+        if form.validate_on_submit():
+
+            # TODO Find if there is an alternative
+            category = Category.objects(id=form.data["category"])[0]
+
+            product.name = form.data["name"]
+            product.description = form.data["description"]
+
+            product.category = category
+
+            product.save()
+
+            flash("Product Detail updated")
+
+            return redirect(url_for("product_update_view", product_id=product.id))
+
+        else:
+            flash("Form validation error")
+            return redirect(url_for("product_update_view", product_id=product.id))
+
+    else:
+        form.name.data = product.name
+        form.description.data = product.description
+        form.category.data = product.category
+
+        # Obtain product attributes
+        product_attributes = ProductAttribute.objects(id=product.id)
+
+        return render_template(
+            "products/admin/update.html",
+            heading="Product detail",
+            product=product,
+            product_attributes=product_attributes,
+            form=form
+        )
 
 
 @torpedo_app.route("/categories/admin/add", methods=["GET", "POST"])

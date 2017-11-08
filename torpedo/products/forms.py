@@ -1,6 +1,8 @@
 from flask_wtf import Form
 
-from wtforms import TextField, StringField, SelectField
+from wtforms import (
+    TextField, StringField, SelectField, FileField, FloatField, IntegerField
+)
 
 from torpedo.products.models import Category
 
@@ -26,3 +28,12 @@ class ProductForm(Form):
         ]
 
         self.category.choices = category_choices
+
+
+class ProductAttributeForm(Form):
+    size = StringField()
+    color = StringField()
+    image = FileField()
+    price = FloatField()
+    discount = FloatField()
+    stock = IntegerField()
