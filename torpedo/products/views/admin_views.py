@@ -92,6 +92,29 @@ def product_attributes_add_view(product_id):
         return render_template("products/attributes/admin/add.html", product=product, form=form)
 
 
+@torpedo_app.route("/products/attributes/admin/update/<product_id>/<attribute_id>", methods=["GET"])
+@login_required
+@admin_user_required
+def product_attribute_update_view(product_id, attribute_id):
+    if request.method == "GET":
+
+        # Check if product with the given id exists
+        product = Product.objects(id=product_id)[0]
+
+        if not product:
+            abort(404)
+
+        # Obtain corresponding attribute
+        attribute = product.attributes.filter(id=attribute_id)
+
+        attribute.delete()
+
+        # Save changes to database
+        product.save()
+
+        return redirect(url_for('product_update_view', product_id=product.id))
+
+
 @torpedo_app.route("/products/admin/update/<product_id>", methods=["GET", "POST"])
 @login_required
 @admin_user_required

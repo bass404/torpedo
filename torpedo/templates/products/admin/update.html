@@ -52,6 +52,7 @@
           <th>Discount</th>
           <th>Stock</th>
           <th>Picture</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -64,6 +65,7 @@
           <td>{{ product_attribute.discount }}</td>
           <td>{{ product_attribute.stock }}</td>
           <td>Insert image here</td>
+          <td><a href="{{ url_for('product_attribute_update_view', product_id=product.id, attribute_id=product_attribute.id) }}">Remove</a></td>
         </tr>
         {% endfor %}
       </tbody>
