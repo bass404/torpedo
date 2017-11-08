@@ -3,17 +3,18 @@ from flask_wtf import Form
 from wtforms import (
     TextField, StringField, SelectField, FileField, FloatField, IntegerField
 )
+from wtforms.validators import DataRequired
 
 from torpedo.products.models import Category
 
 
 class CategoryForm(Form):
-    name = StringField()
+    name = StringField("name", validators=[DataRequired()])
     description = TextField()
 
 
 class ProductForm(Form):
-    name = StringField()
+    name = StringField("name", validators=[DataRequired()])
     description = TextField()
     category = SelectField(choices=[])
 
