@@ -48,6 +48,22 @@ def product_list_view():
     return render_template("products/admin/list.html", heading="List of products", products=products)
 
 
+@torpedo_app.route("/products/attributes/admin/delete/<product_id>", methods=["GET"])
+@login_required
+@admin_user_required
+def product_delete_view(product_id):
+    # Check if product with the given id exists
+    product = Product.objects(id=product_id)[0]
+
+    if not product:
+        abort(404)
+
+    # Delete the specfied Product model
+    product.delete()
+
+    return redirect(url_for("product_list_view"))
+
+
 @torpedo_app.route("/products/attributes/admin/add/<product_id>", methods=["GET", "POST"])
 @login_required
 @admin_user_required
