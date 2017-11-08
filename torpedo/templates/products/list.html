@@ -3,7 +3,7 @@
 {% block content %}
 <div class=" bottom-product">
   {% for product in products %}
-  <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+  <div class="col-md-4 bottom-cd simpleCart_shelfItem" style="margin-bottom:2em;">
     <div class="product-at ">
       <a href="{{ url_for('product_detail_view',product_id=product.id) }}"><img class="img-responsive" src="{{ product.get_image_url }}" alt="">
         <div class="pro-grid">
