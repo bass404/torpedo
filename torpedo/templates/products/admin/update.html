@@ -64,7 +64,8 @@
           <td>{{ product_attribute.price }}</td>
           <td>{{ product_attribute.discount }}</td>
           <td>{{ product_attribute.stock }}</td>
-          <td>Insert image here</td>
+          <!-- TODO Fix this -->
+          <td><img src="{{ product_attribute.get_image_url }}" style="width:50px;height:50px;"></td>
           <td><a href="{{ url_for('product_attribute_update_view', product_id=product.id, attribute_id=product_attribute.id) }}">Remove</a></td>
         </tr>
         {% endfor %}
