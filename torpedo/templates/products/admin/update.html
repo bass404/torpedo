@@ -39,6 +39,9 @@
 <div class="container">
   <div class="col-sm-9">
     <h1>List of Attributes</h1>
+    <div class="pull-right" style="margin-bottom:1em;">
+      <a href="{{ url_for('product_attributes_add_view', product_id=product.id) }}" class="btn btn-lg btn-primary">Add Attribute</a>
+    </div>
     <table class="table table-hover table-responsive" border="1">
       <thead>
         <tr>
@@ -54,6 +57,7 @@
       <tbody>
         {% for product_attribute in product.attributes %}
         <tr>
+          <td>{{ product_attribute.id }}</td>
           <td>{{ product_attribute.size }}</td>
           <td>{{ product_attribute.color }}</td>
           <td>{{ product_attribute.price }}</td>

@@ -1,6 +1,6 @@
 from mongoengine import (
     Document, EmbeddedDocument, StringField, ReferenceField, CASCADE,
-    FloatField, IntField, EmbeddedDocumentListField
+    FloatField, IntField, EmbeddedDocumentListField, SequenceField
 )
 
 
@@ -13,6 +13,8 @@ class ProductAttribute(EmbeddedDocument):
     """
     The ProductAttributes can be embedded directly into the Product model
     """
+
+    id = SequenceField()
 
     size = StringField()
     color = StringField()
