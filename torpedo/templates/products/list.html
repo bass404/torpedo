@@ -5,7 +5,7 @@
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
     <div class="product-at ">
      {% for product in products %}
-      <a href="{{ url_for('product_detail_view') }}"><img class="img-responsive" src="#" alt="">
+     <a href="{{ url_for('product_detail_view') }}"><img class="img-responsive" src="{{ product.get_image_url }}" alt="">
         <div class="pro-grid">
           <span class="buy-in">Buy Now</span>
         </div>

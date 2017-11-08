@@ -42,3 +42,15 @@ class Product(Document):
     category = ReferenceField("products.Category", reverse_delete_rule=CASCADE)
 
     attributes = EmbeddedDocumentListField(ProductAttribute)
+
+    @property
+    def get_image_url(self):
+        """
+        Return the image url of first url
+        """
+
+        if not self.attributes:
+            return ""
+
+        attribute = self.attributes[0]
+        return attribute.get_image_url
