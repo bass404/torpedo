@@ -15,11 +15,11 @@ Flask Tutorials
 Database
 ---------
 1. [MongoDB usecase for Ecommerce](https://docs.mongodb.com/ecosystem/use-cases/product-catalog/)
+2. [One-to-many relationships](https://docs.mongodb.com/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/)
 
 
 Running Development Server
 ==========================
-- If necessary, activate the virtualenv and then run either of the following
-> export FLASK_APP=run.py && flask run
-> 
+- If necessary, activate the virtualenv and then run
+
 > make runserver
