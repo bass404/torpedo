@@ -78,7 +78,8 @@ def product_attributes_add_view(product_id):
                 stock=form.data["stock"]
             )
 
-            product_attribute.save()
+            product.attributes.append(product_attribute)
+            product.save()
 
             flash("Product attribute added")
             return redirect(url_for("product_update_view", product_id=product.id))
@@ -130,14 +131,10 @@ def product_update_view(product_id):
         form.description.data = product.description
         form.category.data = product.category
 
-        # Obtain product attributes
-        product_attributes = ProductAttribute.objects(id=product.id)
-
         return render_template(
             "products/admin/update.html",
             heading="Product detail",
             product=product,
-            product_attributes=product_attributes,
             form=form
         )
 

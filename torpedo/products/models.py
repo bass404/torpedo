@@ -1,5 +1,6 @@
 from mongoengine import (
-    Document, StringField, ReferenceField, CASCADE, FloatField, IntField
+    Document, EmbeddedDocument, StringField, ReferenceField, CASCADE,
+    FloatField, IntField, EmbeddedDocumentListField
 )
 
 
@@ -8,14 +9,11 @@ class Category(Document):
     description = StringField()
 
 
-class Product(Document):
-    name = StringField()
-    description = StringField()
-    category = ReferenceField("products.Category", reverse_delete_rule=CASCADE)
+class ProductAttribute(EmbeddedDocument):
+    """
+    The ProductAttributes can be embedded directly into the Product model
+    """
 
-
-class ProductAttribute(Document):
-    product = ReferenceField("products.Product", reverse_delete_rule=CASCADE)
     size = StringField()
     color = StringField()
 
@@ -24,3 +22,11 @@ class ProductAttribute(Document):
     price = FloatField()
     discount = FloatField()
     stock = IntField()
+
+
+class Product(Document):
+    name = StringField()
+    description = StringField()
+    category = ReferenceField("products.Category", reverse_delete_rule=CASCADE)
+
+    attributes = EmbeddedDocumentListField(ProductAttribute)

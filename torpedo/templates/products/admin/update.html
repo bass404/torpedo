@@ -52,11 +52,8 @@
         </tr>
       </thead>
       <tbody>
-        {% for product_attribute in product_attributes %}
+        {% for product_attribute in product.attributes %}
         <tr>
-          <td>
-            <a href="">{{ product_attribute.id }}</a>
-          </td>
           <td>{{ product_attribute.size }}</td>
           <td>{{ product_attribute.color }}</td>
           <td>{{ product_attribute.price }}</td>
