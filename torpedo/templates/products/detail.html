@@ -1,18 +1,18 @@
 {% extends "products/base.html" %}
 
 {% block page_head %}
-  <!-- FlexSlider -->
-  <script defer src="{{ url_for('static', filename='js/jquery.flexslider.js') }}"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/flexslider.css') }}" type="text/css" media="screen">
-  <script>
+<!-- FlexSlider -->
+<script defer src="{{ url_for('static', filename='js/jquery.flexslider.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flexslider.css') }}" type="text/css" media="screen">
+<script>
   // Can also be used with $(document).ready()
-  $(window).load(function() {
-    $('.flexslider').flexslider({
-      animation: "slide",
-      controlNav: "thumbnails"
-    });
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
   });
-  </script>
+});
+</script>
 {% endblock %}
 
 {% block content %}
@@ -21,9 +21,8 @@
     <ul class="slides">
 
       <li data-thumb="{{ product.get_image_url }}">
-        <img class="img-responsive" src="{{ product.get_image_url }}" alt="">
+        <img class="img-responsive" src="{{ product_image_url }}" alt="">
       </li>
-
     </ul>
   </div>
 </div>
@@ -65,68 +64,25 @@
       <div class="clearfix">
       </div>
     </div>
-
-
     <h5 class="item_price">$ {{product.get_Price}}</h5>
-
-
     <p>{{product.description}}</p>
-
-
     <div class="available">
-      <ul>
-        <li>Color <select>
-            <option>
-              Silver
-            </option>
-
-            <option>
-              Black
-            </option>
-
-            <option>
-              Dark Black
-            </option>
-
-            <option>
-              Red
-            </option>
-        </select></li>
-
-
-        <li class="size-in">Size<select>
-            <option>
-              Large
-            </option>
-
-            <option>
-              Medium
-            </option>
-
-            <option>
-              small
-            </option>
-
-            <option>
-              Large
-            </option>
-
-            <option>
-              small
-            </option>
-        </select></li>
-
-
-        <div class="clearfix">
+      <div class="row">
+        <div class="col-md-3">
+          <span><strong>Choices</strong></span>
         </div>
-      </ul>
+        <div class="col-md-9">
+          {% for product_attribute in product.attributes %}
+          {% if product_attribute.id != attribute.id %}
+          <a class="btn btn-default" href="{{ url_for('product_detail_view', product_id=product.id, attribute_id=product_attribute.id) }}">{{ product_attribute.generate_display_name }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
-
 
     <ul class="tag-men">
       <li><span>TAG</span> <span class="women1">: Women,</span></li>
-
-
       <li><span>SKU</span> <span class="women1">: CK09</span></li>
     </ul>
     <a href="#" class="add-cart item_add">ADD TO CART</a>
@@ -138,7 +94,6 @@
 </div>
 <!---->
 
-
 <div class="cd-tabs">
   <nav>
     <ul class="cd-tabs-navigation">
@@ -146,11 +101,9 @@
         <a data-content="fashion" href="#0">Description</a>
       </li>
 
-
       <li>
         <a data-content="cinema" href="#0">Addtional Informatioan</a>
       </li>
-
 
       <li>
         <a data-content="television" href="#0" class="selected">Reviews (1)</a>
@@ -208,47 +161,24 @@
       </div>
     </li>
 
-
     <li data-content="television" class="selected">
       <div class="comments-top-top">
         <div class="top-comment-left"><img class="img-responsive" src="{{ url_for('static', filename='images/co.png') }}" alt="">
         </div>
 
-
         <div class="top-comment-right">
           <h6><a href="#">Hendri</a> - September 3, 2014</h6>
 
-
           <ul class="star-footer">
-            <li>
-              <a href="#"></a>
-            </li>
-
-
-            <li>
-              <a href="#"></a>
-            </li>
-
-
-            <li>
-              <a href="#"></a>
-            </li>
-
-
-            <li>
-              <a href="#"></a>
-            </li>
-
-
-            <li>
-              <a href="#"></a>
-            </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
           </ul>
-
 
           <p>Wow nice!</p>
         </div>
-
 
         <div class="clearfix">
         </div>
@@ -256,12 +186,10 @@
       </div>
     </li>
 
-
     <div class="clearfix">
     </div>
   </ul>
 </div>
-
 
 <div class="bottom-product">
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
@@ -273,12 +201,10 @@
       </div></a>
     </div>
 
-
     <p class="tun">It is a long established fact that a reader</p>
     <a href="#" class="item_add">
       <p class="number item_price">$500.00</p></a>
   </div>
-
 
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
     <div class="product-at">
@@ -289,12 +215,10 @@
       </div></a>
     </div>
 
-
     <p class="tun">It is a long established fact that a reader</p>
     <a href="#" class="item_add">
       <p class="number item_price">$500.00</p></a>
   </div>
-
 
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
     <div class="product-at">
@@ -305,12 +229,10 @@
       </div></a>
     </div>
 
-
     <p class="tun">It is a long established fact that a reader</p>
     <a href="#" class="item_add">
       <p class="number item_price">$500.00</p></a>
   </div>
-
 
   <div class="clearfix">
   </div>

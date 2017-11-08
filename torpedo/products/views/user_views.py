@@ -15,7 +15,7 @@ def products_list_view():
 @torpedo_app.route("/products/detail/<product_id>/<attribute_id>", methods=["GET", "POST"])
 def product_detail_view(product_id, attribute_id=None):
     # Try to obtain the first item
-    product = Product.objects(id=product_id).first()
+    product = Product.objects(id=product_id)[0]
 
     if attribute_id:
         attribute = product.attributes.filter(id=attribute_id).first()
@@ -26,4 +26,6 @@ def product_detail_view(product_id, attribute_id=None):
     else:
         attribute = product.attributes.filter().first()
 
-    return render_template("products/detail.html", product=product, attribute=attribute)
+    product_image_url = product.get_product_attribute_image_url(attribute.id)
+
+    return render_template("products/detail.html", product=product, attribute=attribute, product_image_url=product_image_url)

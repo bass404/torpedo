@@ -31,6 +31,10 @@ class ProductAttribute(EmbeddedDocument):
     def get_image_url(self):
         return cloudinary.utils.cloudinary_url(self.image)[0]
 
+    @property
+    def generate_display_name(self):
+        return "{} - {}".format(self.color, self.size)
+
 
 class Product(Document):
     name = StringField()
@@ -73,4 +77,10 @@ class Product(Document):
             return ""
 
         attribute = self.attributes[0]
+        return attribute.get_image_url
+
+    def get_product_attribute_image_url(self, attribute_id):
+
+        # Obtain attribute
+        attribute = self.attributes.filter(id=attribute_id).first()
         return attribute.get_image_url
