@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class=" bottom-product">
+  {% for product in products %}
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
     <div class="product-at ">
-     {% for product in products %}
-     <a href="{{ url_for('product_detail_view',product_id=product.id) }}"><img class="img-responsive" src="{{ product.get_image_url }}" alt="">
+      <a href="{{ url_for('product_detail_view',product_id=product.id) }}"><img class="img-responsive" src="{{ product.get_image_url }}" alt="">
         <div class="pro-grid">
           <span class="buy-in">Buy Now</span>
         </div>
@@ -15,9 +15,8 @@
     <p class="tun">{{product.get_Description}}</p>
 
     <a href="{{ url_for('product_detail_view',product_id=product.id) }}" class="item_add"><p class="number item_price"><i> </i>{{product.get_Price}}</p></a>
-        {% endfor %}
-
   </div>
+  {% endfor %}
 
   <div class="clearfix"> </div>
 </div>
