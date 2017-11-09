@@ -28,7 +28,10 @@
           <a href="{{ url_for('user_checkout_view') }}">
             <h3>
               <div class="total">
-                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
+                <!-- Insert count here -->
+                <span>0</span>
+                <span>Items</span>
+              </div>
               <img src="{{ url_for('static', filename='images/cart.png') }}" alt=""/>
             </h3>
           </a>
