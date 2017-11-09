@@ -87,7 +87,7 @@ $(window).load(function() {
       <li><span>TAG</span> <span class="women1">: Women,</span></li>
       <li><span>SKU</span> <span class="women1">: CK09</span></li>
     </ul>
-    <a href="#" class="add-cart item_add">ADD TO CART</a>
+    <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}" class="add-cart item_add">ADD TO CART</a>
   </div>
 </div>
 

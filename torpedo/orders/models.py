@@ -1,6 +1,6 @@
 from mongoengine import (
     Document, EmbeddedDocument, ReferenceField, FloatField, IntField,
-    EmbeddedDocumentListField, EmbeddedDocumentField
+    EmbeddedDocumentListField, EmbeddedDocumentField, SequenceField
 )
 
 
@@ -10,13 +10,15 @@ class ProductAndAttribute(EmbeddedDocument):
     """
 
     product = ReferenceField("products.Product")
-    product_attribute = ReferenceField("products.ProductAttribute")
+    product_attribute = IntField()
 
 
 class BaseOrderDetail(EmbeddedDocument):
     """
     No collection will be created for this model
     """
+
+    id = SequenceField()
 
     product_and_attribute = EmbeddedDocumentField(
         ProductAndAttribute, required=True)
