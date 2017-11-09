@@ -28,6 +28,7 @@ def user_order_view():
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
+@login_required
 def add_product_to_cart(product_id, attribute_id):
     # Fetch the product
     product = Product.objects(id=product_id)[0]
