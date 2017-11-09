@@ -4,8 +4,12 @@
     <div class="container">
       <div class="search">
         <form>
-          <input type="text" value="Search " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-          <input type="submit" value="Go">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+              <a href="" class="btn btn-default" type="submit">Search</a>
+            </div>
+          </div>
         </form>
       </div>
       <div class="header-left">
