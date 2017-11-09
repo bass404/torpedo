@@ -84,3 +84,9 @@ class Product(Document):
         # Obtain attribute
         attribute = self.attributes.filter(id=attribute_id).first()
         return attribute.get_image_url
+
+    def get_product_attribute_size(self, attribute_id):
+
+        # Obtain attribute
+        attribute = self.attributes.filter(id=attribute_id).first()
+        return attribute.size

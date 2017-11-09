@@ -30,6 +30,18 @@ class BaseOrderDetail(EmbeddedDocument):
         "abstract": True,
     }
 
+    @property
+    def get_display_name(self):
+        return self.product_and_attribute.product.name
+
+    @property
+    def get_image_url(self):
+        return self.product_and_attribute.product.get_product_attribute_image_url(self.product_and_attribute.product_attribute)
+
+    @property
+    def get_size(self):
+        return self.product_and_attribute.product.get_product_attribute_size(self.product_and_attribute.product_attribute)
+
 
 class CartProductDetail(BaseOrderDetail):
     """

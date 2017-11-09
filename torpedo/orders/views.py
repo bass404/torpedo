@@ -9,7 +9,11 @@ from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
 @torpedo_app.route("/user/checkout", methods=["GET"])
 @login_required
 def user_checkout_view():
-    return render_template("orders/checkout.html")
+
+    # Obtain the products in cart for the user
+    cart = Cart.objects(user=current_user.id).first()
+
+    return render_template("orders/checkout.html", products=cart.cart_product_details)
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
