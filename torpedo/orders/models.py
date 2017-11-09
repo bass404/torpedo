@@ -60,7 +60,7 @@ class Cart(Document):
     """
 
     user = ReferenceField("users.User")
-    cart_product_details = EmbeddedDocumentListField(CartProductDetail)
+    product_details = EmbeddedDocumentListField(CartProductDetail)
 
 
 class OrderDetail(BaseOrderDetail):
@@ -76,4 +76,4 @@ class Order(Document):
     """
 
     user = ReferenceField("users.User")
-    cart_product_details = EmbeddedDocumentListField(OrderDetail)
+    product_details = EmbeddedDocumentListField(OrderDetail)

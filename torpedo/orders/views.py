@@ -14,7 +14,7 @@ def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
 
-    return render_template("orders/checkout.html", products=cart.cart_product_details)
+    return render_template("orders/checkout.html", products=cart.product_details)
 
 @torpedo_app.route("/user/order", methods=["GET"])
 @login_required
@@ -57,12 +57,12 @@ def add_product_to_cart(product_id, attribute_id):
     # Check if a cart for user already exits
     cart = Cart.objects(user=current_user.id).first()
     if cart:
-        cart.cart_product_details.append(cart_product_detail)
+        cart.product_details.append(cart_product_detail)
         cart.save()
     else:
         # Create the Cart object
         cart = Cart(user=current_user.id)
-        cart.cart_product_details.append(cart_product_detail)
+        cart.product_details.append(cart_product_detail)
 
         # Save the card object
         cart.save()
