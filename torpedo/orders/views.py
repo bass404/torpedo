@@ -38,11 +38,17 @@ def add_product_to_cart(product_id, attribute_id):
         discount=product_attribute.discount
     )
 
-    # Create the Cart object
-    cart = Cart(user=current_user.id)
-    cart.cart_product_details.append(cart_product_detail)
+    # Check if a cart for user already exits
+    cart = Cart.objects(user=current_user.id).first()
+    if cart:
+        cart.cart_product_details.append(cart_product_detail)
+        cart.save()
+    else:
+        # Create the Cart object
+        cart = Cart(user=current_user.id)
+        cart.cart_product_details.append(cart_product_detail)
 
-    # Save the card object
-    cart.save()
+        # Save the card object
+        cart.save()
 
     return redirect(url_for('products_list_view'))
