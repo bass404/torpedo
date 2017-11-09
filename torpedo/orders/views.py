@@ -67,7 +67,8 @@ def add_product_to_cart(product_id, attribute_id):
         # Save the card object
         cart.save()
 
-    return redirect(url_for('products_list_view'))
+    return redirect(url_for('user_checkout_view'))
+
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
 @login_required
@@ -77,8 +78,9 @@ def product_delete_cart(product_attribute_id):
     #TODO: handle any exceptions and Check if the cart for user is empty or not
 
     cart = Cart.objects(user=current_user.id).first()
-    cart_product_details = cart.cart_product_details.filter(id=product_attribute_id)
-    cart_product_details.delete()
+    cart_product_detail = cart.product_details.filter(id=product_attribute_id)
+    cart_product_detail.delete()
     cart.save()
-    # Delete the specfied Product attribute
-    return render_template("orders/checkout.html", products=cart.cart_product_details)
+
+    # Redirect user to checkout page
+    return redirect(url_for('user_checkout_view'))
