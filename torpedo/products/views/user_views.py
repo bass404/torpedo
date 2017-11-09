@@ -7,6 +7,16 @@ from torpedo.products.models import Product
 from torpedo.products.helpers import get_category_list
 
 
+def construct_user_template_dictionary(**kwargs):
+    """
+    Construct the dictionary that should be user views
+    """
+
+    return {
+        "sidebar_categories": get_category_list(6)
+    }
+
+
 @torpedo_app.route("/products/list", methods=["GET", "POST"])
 def products_list_view():
     if request.method == "GET":
@@ -25,7 +35,7 @@ def products_list_view():
             "products/list.html",
             heading="List of products",
             products=products,
-            sidebar_categories=get_category_list(5)
+            **construct_user_template_dictionary()
         )
 
 
@@ -48,8 +58,9 @@ def product_detail_view(product_id, attribute_id=None):
 
     return render_template(
         "products/detail.html",
+        heading="List of products",
         product=product,
         attribute=attribute,
         product_image_url=product_image_url,
-        sidebar_categories=get_category_list(5)
+        **construct_user_template_dictionary()
     )
