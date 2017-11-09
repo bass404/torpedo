@@ -75,6 +75,8 @@ $(window).load(function() {
           {% for product_attribute in product.attributes %}
           {% if product_attribute.id != attribute.id %}
           <a class="btn btn-default" href="{{ url_for('product_detail_view', product_id=product.id, attribute_id=product_attribute.id) }}">{{ product_attribute.generate_display_name }}</a>
+          {% else %}
+          <a class="btn btn-primary">{{ product_attribute.generate_display_name }}</a>
           {% endif %}
           {% endfor %}
         </div>
