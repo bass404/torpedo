@@ -3,11 +3,11 @@
   <div class="header-top">
     <div class="container">
       <div class="search">
-        <form>
+        <form action="{{ url_for('products_list_view') }}" method="GET">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input name="search" type="text" class="form-control" placeholder="Search">
             <div class="input-group-btn">
-              <a href="" class="btn btn-default" type="submit">Search</a>
+              <button class="btn btn-default" type="submit">Search</a>
             </div>
           </div>
         </form>
