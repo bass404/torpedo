@@ -1,5 +1,6 @@
 from flask import render_template, abort, redirect, url_for
 from flask_login import current_user, login_required
+import time
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
@@ -14,6 +15,16 @@ def user_checkout_view():
     cart = Cart.objects(user=current_user.id).first()
 
     return render_template("orders/checkout.html", products=cart.cart_product_details)
+
+@torpedo_app.route("/user/order", methods=["GET"])
+@login_required
+def user_order_view():
+
+    # Obtain the products in cart for the user
+    cart = Cart.objects(user=current_user.id).first()
+    date = time.strftime("%d/%m/%Y")
+    shipping_address = "New Addresss"
+    return render_template("orders/order.html", products=cart.cart_product_details, date = date, shipping_address = shipping_address)
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")

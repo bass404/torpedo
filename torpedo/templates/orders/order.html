@@ -1,0 +1,63 @@
+{% extends "base_templates/base.html" %}
+
+{% block container %}
+<div class="container">
+  <div class="check">
+    <h1>Order Summary</h1>
+  Date: {{ date }}<br/><br/>
+      <div class="row">
+          <div class="col-md-8">
+      <table class="table">
+          <thead>
+        <tr>
+            <th>Order Details</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+          <tbody>
+
+          {% for product in products %}
+          <tr>
+              <td>{{ product.get_display_name }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>{{ product.get_price }}</td>
+          </tr>
+          {% endfor %}
+
+          <tr>
+              <td>&nbsp;</td>
+              <td>Sub-total</td>
+              <td>1600</td>
+          </tr>
+          <tr>
+              <td>&nbsp;</td>
+              <td>TAX</td>
+              <td>160</td>
+          </tr>
+          <tr>
+              <td>&nbsp;</td>
+              <td>Total</td>
+              <td>1760</td>
+          </tr>
+        </tbody>
+      </table>
+          </div>
+
+      <div class="col-md-4">.
+
+        <p>
+        <h4>Shipping Address:</h4><br/>
+            John Carter,<br/>
+            1500 Sparkman Drive,<br/>
+            HSV, AL, 35816<br/>
+            Phone: +1-256-527-1111<br/>
+          <br/>
+          {{ shipping_address}}
+        </p>
+          <a class="order" href="{{ url_for('user_order_view') }}">Confirm Order</a>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
