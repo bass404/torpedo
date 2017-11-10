@@ -27,6 +27,17 @@ def user_order_view():
     return render_template("orders/order.html", products=cart.product_details, cart_details=cart_details)
 
 
+@torpedo_app.route("/user/order/summary", methods=["GET"])
+@login_required
+def user_ordersummary_view():
+    # Obtain the products in cart for the user
+    cart = Cart.objects(user=current_user.id).first()
+
+    cart_details = get_cart_details(cart.product_details)
+
+    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart_details)
+
+
 def get_cart_details(cart):
     date = time.strftime("%Y-%m-%d")
     shipping_address = "New Addresss"
