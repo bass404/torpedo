@@ -10,21 +10,43 @@ from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
 @torpedo_app.route("/user/checkout", methods=["GET"])
 @login_required
 def user_checkout_view():
-
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
 
     return render_template("orders/checkout.html", products=cart.product_details)
 
+
 @torpedo_app.route("/user/order", methods=["GET"])
 @login_required
 def user_order_view():
-
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    date = time.strftime("%d/%m/%Y")
+
+    cart_details = get_cart_details(cart.cart_product_details)
+
+    return render_template("orders/order.html", products=cart.cart_product_details, cart_details=cart_details)
+
+
+def get_cart_details(cart):
+    date = time.strftime("%Y-%m-%d")
     shipping_address = "New Addresss"
-    return render_template("orders/order.html", products=cart.cart_product_details, date = date, shipping_address = shipping_address)
+    total_price = sum([car.get_price for car in cart])
+    total_discount = sum([car.get_discount for car in cart])
+    shipping_charge = 15
+    tax = (total_price + shipping_charge) * 0.15
+    net_price = total_price + shipping_charge + tax - total_discount
+
+    cart_details = {
+        "date": date,
+        "address": shipping_address,
+        "total": total_price,
+        "discount": total_discount,
+        "shipping": shipping_charge,
+        "tax": tax,
+        "net": net_price
+    }
+
+    return cart_details
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
@@ -70,12 +92,13 @@ def add_product_to_cart(product_id, attribute_id):
     return redirect(url_for('user_checkout_view'))
 
 
+
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
 @login_required
 def product_delete_cart(product_attribute_id):
     # Check if product with the given id exists
 
-    #TODO: handle any exceptions and Check if the cart for user is empty or not
+    # TODO: handle any exceptions and Check if the cart for user is empty or not
 
     cart = Cart.objects(user=current_user.id).first()
     cart_product_detail = cart.product_details.filter(id=product_attribute_id)

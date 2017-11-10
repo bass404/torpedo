@@ -36,16 +36,30 @@ class BaseOrderDetail(EmbeddedDocument):
 
     @property
     def get_image_url(self):
-        return self.product_and_attribute.product.get_product_attribute_image_url(self.product_and_attribute.product_attribute)
+        return self.product_and_attribute.product.get_product_attribute_image_url(
+            self.product_and_attribute.product_attribute)
 
     @property
     def get_size(self):
-        return self.product_and_attribute.product.get_product_attribute_size(self.product_and_attribute.product_attribute)
-
+        return self.product_and_attribute.product.get_product_attribute_size(
+            self.product_and_attribute.product_attribute)
 
     @property
     def get_price(self):
-        return self.product_and_attribute.product.get_product_attribute_price(self.product_and_attribute.product_attribute)
+        return self.product_and_attribute.product.get_product_attribute_price(
+            self.product_and_attribute.product_attribute)
+
+    @property
+    def get_discount(self):
+        """
+        Return the discount price
+        """
+
+        if not self.discount:
+            return 0.0
+
+        return self.discount
+
 
 class CartProductDetail(BaseOrderDetail):
     """
