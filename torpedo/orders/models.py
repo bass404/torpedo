@@ -2,7 +2,7 @@ from mongoengine import (
     Document, EmbeddedDocument, ReferenceField, FloatField, IntField,
     EmbeddedDocumentListField, EmbeddedDocumentField, SequenceField
 )
-
+import time
 
 class ProductAndAttribute(EmbeddedDocument):
     """
@@ -75,6 +75,28 @@ class Cart(Document):
 
     user = ReferenceField("users.User")
     product_details = EmbeddedDocumentListField(CartProductDetail)
+
+    @property
+    def get_details(self):
+        date = time.strftime("%Y-%m-%d")
+        shipping_address = "New Addresss"
+        total_price = sum([car.get_price for car in self.product_details])
+        total_discount = sum([car.get_discount for car in self.product_details])
+        shipping_charge = 15
+        tax = (total_price + shipping_charge) * 0.15
+        net_price = total_price + shipping_charge + tax - total_discount
+
+        cart_details = {
+            "date": date,
+            "address": shipping_address,
+            "total": total_price,
+            "discount": total_discount,
+            "shipping": shipping_charge,
+            "tax": tax,
+            "net": net_price
+        }
+
+        return cart_details
 
 
 class OrderDetail(BaseOrderDetail):

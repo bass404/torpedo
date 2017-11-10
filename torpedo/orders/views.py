@@ -12,8 +12,7 @@ from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
 def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-
-    return render_template("orders/checkout.html", products=cart.product_details)
+    return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
 
 
 @torpedo_app.route("/user/order", methods=["GET"])
@@ -21,10 +20,7 @@ def user_checkout_view():
 def user_order_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-
-    cart_details = get_cart_details(cart.product_details)
-
-    return render_template("orders/order.html", products=cart.product_details, cart_details=cart_details)
+    return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details)
 
 
 @torpedo_app.route("/user/order/summary", methods=["GET"])
@@ -32,32 +28,7 @@ def user_order_view():
 def user_ordersummary_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-
-    cart_details = get_cart_details(cart.product_details)
-
-    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart_details)
-
-
-def get_cart_details(cart):
-    date = time.strftime("%Y-%m-%d")
-    shipping_address = "New Addresss"
-    total_price = sum([car.get_price for car in cart])
-    total_discount = sum([car.get_discount for car in cart])
-    shipping_charge = 15
-    tax = (total_price + shipping_charge) * 0.15
-    net_price = total_price + shipping_charge + tax - total_discount
-
-    cart_details = {
-        "date": date,
-        "address": shipping_address,
-        "total": total_price,
-        "discount": total_discount,
-        "shipping": shipping_charge,
-        "tax": tax,
-        "net": net_price
-    }
-
-    return cart_details
+    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details)
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
