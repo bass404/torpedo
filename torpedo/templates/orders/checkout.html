@@ -11,6 +11,7 @@
         $('#close_{{product.id}}').on('click', function(c){
           $('#cart-header_{{product.id}}').fadeOut('slow', function(c){
             $('#cart-header_{{product.id}}').remove();
+            document.location.href="{{ url_for('product_delete_cart', product_attribute_id=product.id) }}";
           });
         });
       });
@@ -25,11 +26,11 @@
             <h3><a href="#">{{product.get_display_name}}</a><span>Model No: 3578</span></h3>
             <ul class="qty">
               <li><p>Size : {{product.get_size}}</p></li>
-              <li><p>Qty : 1</p></li>
+              <li><p>Qty : {{product.quantity}}</p></li>
             </ul>
 
             <div class="delivery">
-              <p>Service Charges : Rs.100.00</p>
+              <p>Price : {{product.get_price}}</p>
               <span>Delivered in 2-3 bussiness days</span>
               <div class="clearfix"></div>
             </div>
