@@ -2413,3 +2413,28 @@ a.item_add p.number {
   overflow:hidden;
   margin-top:10px;
 }
+
+.img-custom{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-list{
+  width:160px;
+  height:160px;
+  overflow:hidden;
+}
+
+.cart-item-info{
+  float: none;
+  width:auto;
+  padding-top: 10px;
+}
+
+.cart-item img {
+  width:auto;
+}
