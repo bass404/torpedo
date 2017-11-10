@@ -43,6 +43,10 @@ class BaseOrderDetail(EmbeddedDocument):
         return self.product_and_attribute.product.get_product_attribute_size(self.product_and_attribute.product_attribute)
 
 
+    @property
+    def get_price(self):
+        return self.product_and_attribute.product.get_product_attribute_price(self.product_and_attribute.product_attribute)
+
 class CartProductDetail(BaseOrderDetail):
     """
     Store this model in seperate collection

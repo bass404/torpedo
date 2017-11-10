@@ -90,3 +90,9 @@ class Product(Document):
         # Obtain attribute
         attribute = self.attributes.filter(id=attribute_id).first()
         return attribute.size
+
+    def get_product_attribute_price(self, attribute_id):
+
+        # Obtain attribute
+        attribute = self.attributes.filter(id=attribute_id).first()
+        return attribute.price
