@@ -3,7 +3,7 @@
 {% block container %}
 <div class="container">
   <div class="check">
-    <h1>My Shopping Bag (2)</h1>
+    <h1>My Shopping Bag ({{ cart_details.no_items }})</h1>
     <div class="col-md-9 cart-items">
 
       {% for product in products %}
@@ -51,6 +51,8 @@
         <span class="total1">{{cart_details.discount}}</span>
         <span>Delivery Charges</span>
         <span class="total1">150.00</span>
+          <span>TAX <small>(15%)</small></span>
+        <span class="total1">{{cart_details.tax}}</span>
         <div class="clearfix"></div>
       </div>
       <ul class="total_price">

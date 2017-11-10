@@ -1,0 +1,21 @@
+{% extends "base_templates/base.html" %}
+
+{% block container %}
+<div class="container">
+
+    <div class="col-md-12" align="center">
+        <div class="check">
+            <h1>Your shopping bag is empty.</h1><br/><br/>
+            <span>Great Deals at great price! Shop Now to grab this golden opportunity!!!</span><br/>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-4"><a class="continue" href="{{ url_for('products_list_view') }}">Continue to basket</a></div>
+            <div class="col-md-4">&nbsp;</div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

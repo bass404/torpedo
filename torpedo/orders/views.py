@@ -12,7 +12,10 @@ from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
 def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
+    if(cart.get_details["no_items"]<1):
+        return render_template("orders/checkout_empty.html", products=cart.product_details, cart_details=cart.get_details)
+    else:
+        return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
 
 
 @torpedo_app.route("/user/order", methods=["GET"])

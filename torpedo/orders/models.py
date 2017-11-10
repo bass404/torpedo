@@ -80,6 +80,7 @@ class Cart(Document):
     def get_details(self):
         date = time.strftime("%Y-%m-%d")
         shipping_address = "New Addresss"
+        no_items = sum([1 for car in self.product_details])
         total_price = sum([car.get_price for car in self.product_details])
         total_discount = sum([car.get_discount for car in self.product_details])
         shipping_charge = 15
@@ -89,6 +90,7 @@ class Cart(Document):
         cart_details = {
             "date": date,
             "address": shipping_address,
+            "no_items":no_items,
             "total": total_price,
             "discount": total_discount,
             "shipping": shipping_charge,
