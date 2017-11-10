@@ -22,9 +22,9 @@ def user_order_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
 
-    cart_details = get_cart_details(cart.cart_product_details)
+    cart_details = get_cart_details(cart.product_details)
 
-    return render_template("orders/order.html", products=cart.cart_product_details, cart_details=cart_details)
+    return render_template("orders/order.html", products=cart.product_details, cart_details=cart_details)
 
 
 def get_cart_details(cart):
