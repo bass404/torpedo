@@ -1,7 +1,7 @@
 import os
+
 from flask import Flask
 from flask_login import LoginManager
-
 from mongoengine import connect
 
 os.environ['CLOUDINARY_URL'] = "cloudinary://437924985166772:K17WhzU70_x35oZKz8f1Reow7yU@dos7zqrjl"
@@ -22,4 +22,4 @@ connect(
 from torpedo.base import views as base_views
 from torpedo.users import views as user_views
 from torpedo.products import views as product_views
-from torpedo.orders import views as order_views
+from torpedo.orders.admin import user_views as order_views

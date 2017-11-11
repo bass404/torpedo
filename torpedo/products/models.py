@@ -53,7 +53,7 @@ class Product(Document):
             return ""
 
         description = self.description
-        info = (description[:30] + '..') if len(description) > 30 else description
+        info = (description[:30] + '...') if len(description) > 30 else description
         return info
 
     @property

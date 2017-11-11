@@ -44,7 +44,6 @@ def add_product_view():
 def product_list_view():
     # Obtain the list of products
     products = Product.objects()
-
     return render_template("products/admin/list.html", heading="List of products", products=products)
 
 

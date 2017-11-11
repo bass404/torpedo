@@ -5,26 +5,17 @@ import time
 from torpedo import torpedo_app
 from torpedo.products.models import Product
 from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
-from torpedo.users.models import UserAddress
+
 
 @torpedo_app.route("/user/checkout", methods=["GET"])
 @login_required
 def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    if(cart.get_details["no_items"]<1):
-        return render_template("orders/checkout_empty.html", products=cart.product_details, cart_details=cart.get_details)
-    else:
+    if cart:
         return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
-
-
-@torpedo_app.route("/user/shipping_address", methods=["GET"])
-@login_required
-def user_order_shipping_view():
-    # Obtain the products in cart for the user
-    shipping_address = UserAddress.objects(user=current_user.id).first()
-    return render_template("orders/shipping.html", shipping_address=shipping_address)
-
+    else:
+        return render_template("orders/checkout_empty.html")
 
 @torpedo_app.route("/user/order", methods=["GET"])
 @login_required
@@ -79,7 +70,7 @@ def add_product_to_cart(product_id, attribute_id):
         cart = Cart(user=current_user.id)
         cart.product_details.append(cart_product_detail)
 
-        # Save the card object
+        # Save the cart object
         cart.save()
 
     return redirect(url_for('user_checkout_view'))

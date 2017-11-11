@@ -1,8 +1,10 @@
 from mongoengine import (
-    Document, EmbeddedDocument, ReferenceField, FloatField, IntField,
+    Document, EmbeddedDocument, ReferenceField, FloatField, IntField,StringField,DateTimeField,
     EmbeddedDocumentListField, EmbeddedDocumentField, SequenceField
 )
 import time
+from .utils import get_Shopping_detail_information
+from datetime import datetime
 
 class ProductAndAttribute(EmbeddedDocument):
     """
@@ -78,27 +80,7 @@ class Cart(Document):
 
     @property
     def get_details(self):
-        date = time.strftime("%Y-%m-%d")
-        shipping_address = "New Addresss"
-        no_items = sum([1 for car in self.product_details])
-        total_price = sum([car.get_price for car in self.product_details])
-        total_discount = sum([car.get_discount for car in self.product_details])
-        shipping_charge = 15
-        tax = (total_price + shipping_charge) * 0.15
-        net_price = total_price + shipping_charge + tax - total_discount
-
-        cart_details = {
-            "date": date,
-            "address": shipping_address,
-            "no_items":no_items,
-            "total": total_price,
-            "discount": total_discount,
-            "shipping": shipping_charge,
-            "tax": tax,
-            "net": net_price
-        }
-
-        return cart_details
+        return get_Shopping_detail_information(self)
 
 
 class OrderDetail(BaseOrderDetail):
@@ -115,3 +97,12 @@ class Order(Document):
 
     user = ReferenceField("users.User")
     product_details = EmbeddedDocumentListField(OrderDetail)
+    status = StringField()
+    created_on = DateTimeField(default=datetime.now())
+    updated_on = DateTimeField(default=datetime.now())
+
+    @property
+    def get_details(self):
+        return get_Shopping_detail_information(self)
+
+
