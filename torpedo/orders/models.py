@@ -47,22 +47,6 @@ class BaseOrderDetail(EmbeddedDocument):
         return self.product_and_attribute.product.get_product_attribute_size(
             self.product_and_attribute.product_attribute)
 
-    @property
-    def get_price(self):
-        return self.product_and_attribute.product.get_product_attribute_price(
-            self.product_and_attribute.product_attribute)
-
-    @property
-    def get_discount(self):
-        """
-        Return the discount price
-        """
-
-        if not self.discount:
-            return 0.0
-
-        return self.discount
-
 
 class CartProductDetail(BaseOrderDetail):
     """
@@ -88,8 +72,8 @@ class PriceDetailsMixin():
         shipping_address = "New Addresss"
         no_items = len(self.product_details)
 
-        total_price = sum([x.get_price for x in self.product_details])
-        total_discount = sum([car.get_discount for car in self.product_details])
+        total_price = sum([x.price for x in self.product_details])
+        total_discount = sum([car.discount for car in self.product_details])
 
         shipping_charge = 15
         tax = (total_price + shipping_charge) * 0.15
