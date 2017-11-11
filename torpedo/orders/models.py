@@ -72,8 +72,9 @@ class PriceDetailsMixin():
         shipping_address = "New Addresss"
         no_items = len(self.product_details)
 
-        total_price = sum([x.price for x in self.product_details])
-        total_discount = sum([car.discount for car in self.product_details])
+        prices, discounts = zip(*[(x.price, x.discount) for x in self.product_details])
+        total_price = sum(prices)
+        total_discount = sum(discounts)
 
         shipping_charge = 15
         tax = (total_price + shipping_charge) * 0.15
