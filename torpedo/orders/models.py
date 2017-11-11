@@ -98,11 +98,12 @@ class Order(Document):
     user = ReferenceField("users.User")
     product_details = EmbeddedDocumentListField(OrderDetail)
     status = StringField()
-    created_on = DateTimeField(default=datetime.now())
-    updated_on = DateTimeField(default=datetime.now())
+
+    # Don't use function call directly
+    # See https://stackoverflow.com/questions/2771676/django-datetime-issues-default-datetime-now
+    created_on = DateTimeField(default=datetime.now)
+    updated_on = DateTimeField(default=datetime.now)
 
     @property
     def get_details(self):
         return get_Shopping_detail_information(self)
-
-
