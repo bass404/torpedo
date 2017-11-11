@@ -1,0 +1,32 @@
+{% extends "base_templates/base.html" %}
+
+{% block container %}
+<div class="container">
+<div class="check">
+    <div class="row">
+        <div class="col-md-8" align="center">
+            <h4><b>Shipping Address:</b></h4><br/>
+            <p>{{ shipping_address.user.first_name }} {{ shipping_address.user.last_name }},<br/>
+                {{ shipping_address.address }},<br/>
+                {{ shipping_address.address_1 }}, {{ shipping_address.address_2 }},<br/>
+                {{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}<br/>
+                ZIP-code: {{ shipping_address.zipcode }}<br/>
+                Phone no.: {{ shipping_address.user.phone }}<br/>
+                <br/>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+
+                <a class="continue" href="{{ url_for('user_address_add_view') }}">
+                    Edit Shipping Address
+                </a>
+                <a class="continue" href="{{ url_for('user_order_view') }}">
+                    Continue to Checkout
+                </a>
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
