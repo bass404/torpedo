@@ -4,7 +4,8 @@ import time
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
-from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart
+from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart, OrderDetail, Order
+from torpedo.users.models import UserAddress
 
 
 @torpedo_app.route("/user/checkout", methods=["GET"])
@@ -16,6 +17,15 @@ def user_checkout_view():
         return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
     else:
         return render_template("orders/checkout_empty.html")
+
+
+@torpedo_app.route("/user/shipping_address", methods=["GET"])
+@login_required
+def user_order_shipping_view():
+    # Obtain the products in cart for the user
+    shipping_address = UserAddress.objects(user=current_user.id).first()
+    return render_template("orders/shipping.html", shipping_address=shipping_address)
+
 
 @torpedo_app.route("/user/order", methods=["GET"])
 @login_required
@@ -70,11 +80,34 @@ def add_product_to_cart(product_id, attribute_id):
         cart = Cart(user=current_user.id)
         cart.product_details.append(cart_product_detail)
 
-        # Save the cart object
+        # Save the card object
         cart.save()
 
     return redirect(url_for('user_checkout_view'))
 
+
+@torpedo_app.route("/order/product/add/")
+@login_required
+def add_product_to_order():
+    # Fetch the cart objects from the session
+    cart = Cart.objects(user=current_user.id).first()
+    # Create the Order object
+    order = Order(user=current_user.id, status='PENDING')
+    for each_product_attrb in cart.product_details:
+        order_detail = OrderDetail(id=each_product_attrb.id,
+            product_and_attribute = each_product_attrb.product_and_attribute,
+            price = each_product_attrb.price,
+            discount = each_product_attrb.discount,
+            quantity = each_product_attrb.quantity)
+        order.product_details.append(order_detail)
+
+
+    # Save the card object
+    #TODO: Check for transaction control
+    order.save()
+    cart.delete()
+    #TODO: This can be redirected to a page with a thank you note
+    return render_template("orders/order_summary.html", products=order.product_details, order_details=order.get_details)
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
