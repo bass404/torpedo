@@ -14,7 +14,7 @@ def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
     if cart:
-        return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details)
+        return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details())
     else:
         return render_template("orders/checkout_empty.html")
 
@@ -32,7 +32,7 @@ def user_order_shipping_view():
 def user_order_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details)
+    return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details())
 
 
 @torpedo_app.route("/user/order/summary", methods=["GET"])
@@ -40,7 +40,7 @@ def user_order_view():
 def user_ordersummary_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details)
+    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details())
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
@@ -107,7 +107,7 @@ def add_product_to_order():
     order.save()
     cart.delete()
     #TODO: This can be redirected to a page with a thank you note
-    return render_template("orders/order_summary.html", products=order.product_details, order_details=order.get_details)
+    return render_template("orders/order_summary.html", products=order.product_details, order_details=order.get_details())
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])

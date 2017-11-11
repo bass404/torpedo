@@ -1,10 +1,11 @@
-from mongoengine import (
-    Document, EmbeddedDocument, ReferenceField, FloatField, IntField,StringField,DateTimeField,
-    EmbeddedDocumentListField, EmbeddedDocumentField, SequenceField
-)
-import time
-from .utils import get_Shopping_detail_information
 from datetime import datetime
+
+from mongoengine import (
+    Document, EmbeddedDocument, ReferenceField, FloatField, IntField,
+    StringField, DateTimeField, EmbeddedDocumentListField,
+    EmbeddedDocumentField, SequenceField
+)
+
 
 class ProductAndAttribute(EmbeddedDocument):
     """
@@ -70,19 +71,6 @@ class CartProductDetail(BaseOrderDetail):
     pass
 
 
-class Cart(Document):
-    """
-    Model to hold the cart detail of a user
-    """
-
-    user = ReferenceField("users.User")
-    product_details = EmbeddedDocumentListField(CartProductDetail)
-
-    @property
-    def get_details(self):
-        return get_Shopping_detail_information(self)
-
-
 class OrderDetail(BaseOrderDetail):
     """
     Store this model in seperate collection
@@ -90,7 +78,47 @@ class OrderDetail(BaseOrderDetail):
     pass
 
 
-class Order(Document):
+class PriceDetailsMixin():
+    """
+    Base class for implementing method for price details
+    """
+
+    def get_details(self):
+        date = datetime.now().strftime("%Y-%m-%d")
+        shipping_address = "New Addresss"
+        no_items = len(self.product_details)
+
+        total_price = sum([x.get_price for x in self.product_details])
+        total_discount = sum([car.get_discount for car in self.product_details])
+
+        shipping_charge = 15
+        tax = (total_price + shipping_charge) * 0.15
+        net_price = total_price + shipping_charge + tax - total_discount
+
+        shopping_details = {
+            "date": date,
+            "address": shipping_address,
+            "no_items": no_items,
+            "total": total_price,
+            "discount": total_discount,
+            "shipping": shipping_charge,
+            "tax": tax,
+            "net": net_price
+        }
+
+        return shopping_details
+
+
+class Cart(Document, PriceDetailsMixin):
+    """
+    Model to hold the cart detail of a user
+    """
+
+    user = ReferenceField("users.User")
+    product_details = EmbeddedDocumentListField(CartProductDetail)
+
+
+class Order(Document, PriceDetailsMixin):
     """
     Model to hold the order detail for a user
     """
@@ -103,7 +131,3 @@ class Order(Document):
     # See https://stackoverflow.com/questions/2771676/django-datetime-issues-default-datetime-now
     created_on = DateTimeField(default=datetime.now)
     updated_on = DateTimeField(default=datetime.now)
-
-    @property
-    def get_details(self):
-        return get_Shopping_detail_information(self)
