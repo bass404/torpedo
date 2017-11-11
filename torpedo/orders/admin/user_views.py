@@ -24,7 +24,10 @@ def user_checkout_view():
 def user_order_shipping_view():
     # Obtain the products in cart for the user
     shipping_address = UserAddress.objects(user=current_user.id).first()
-    return render_template("orders/shipping.html", shipping_address=shipping_address)
+    if not shipping_address:
+        return render_template("orders/shipping_new.html")
+    else:
+        return render_template("orders/shipping.html", shipping_address=shipping_address)
 
 
 @torpedo_app.route("/user/order", methods=["GET"])
