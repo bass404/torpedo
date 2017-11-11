@@ -2407,14 +2407,7 @@ a.item_add p.number {
   max-height: 100%;
 }
 
-.product-list{
-  width:220px;
-  height:220px;
-  overflow:hidden;
-  margin-top:10px;
-}
-
-.img-custom{
+.img-custom1{
   position: relative;
   top: 50%;
   left: 50%;
@@ -2423,7 +2416,7 @@ a.item_add p.number {
   max-height: 100%;
 }
 
-.product-list{
+.product-list1{
   width:160px;
   height:160px;
   overflow:hidden;
@@ -2437,4 +2430,11 @@ a.item_add p.number {
 
 .cart-item img {
   width:auto;
+}
+
+.product-list{
+  width:auto;
+  height:220px;
+  overflow:hidden;
+  margin-top:10px;
 }
