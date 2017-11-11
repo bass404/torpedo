@@ -1,0 +1,30 @@
+{% extends "users/settings/base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="col-sm-9">
+    <h1>{{ heading }}</h1>
+    <table class="table table-hover table-responsive" border="1">
+      <thead>
+        <tr>
+          <th>Order Id </th>
+          <th>User Id</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>
+           {{ order.id }}
+          </td>
+          <td>{{ order.user.id }}</td>
+          <td>{{ order.status }}</td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
