@@ -81,7 +81,10 @@ class User(Document):
         """
 
         cart = self.get_user_cart()
-        return cart.get_number_of_items()
+        if cart:
+            return cart.get_number_of_items()
+        else:
+            return 0
 
 
 class UserRole(Document):
