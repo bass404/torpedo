@@ -54,6 +54,12 @@ class User(Document):
     def get_id(self):
         return str(self.id)
 
+    def get_name(self):
+        if self.first_name and self.last_name:
+            return "{} {}".format(self.first_name, self.last_name)
+        else:
+            return ""
+
     def set_password(self, password):
         self.password = hash_password(password)
 
