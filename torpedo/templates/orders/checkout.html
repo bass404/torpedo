@@ -23,7 +23,7 @@
             <img src="{{ product.get_image_url }}" class="img-responsive img-custom1" alt=""/>
           </div>
           <div class="cart-item-info">
-            <h3><a href="#">{{product.get_display_name}}</a><span>Model No: 3578</span></h3>
+            <h3><a href="{{ url_for('product_detail_view', product_id=product.get_product_id()) }}">{{product.get_display_name}}</a><span>Model No: 3578</span></h3>
             <ul class="qty">
               <li><p>Size : {{product.get_size}}</p></li>
               <li><p>Qty : {{product.quantity}}</p></li>
