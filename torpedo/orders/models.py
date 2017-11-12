@@ -67,10 +67,19 @@ class PriceDetailsMixin():
     Base class for implementing method for price details
     """
 
+    def get_number_of_items(self):
+        """
+        Return the number of items in product_details
+
+        NOTE: Return the number of unique items only. Does not uses quantity
+        """
+
+        return len(self.product_details)
+
     def get_details(self):
         date = datetime.now().strftime("%Y-%m-%d")
         shipping_address = "New Addresss"
-        no_items = len(self.product_details)
+        no_items = self.get_number_of_items()
 
         prices, discounts = zip(*[(x.price, x.discount) for x in self.product_details])
         total_price = sum(prices)
