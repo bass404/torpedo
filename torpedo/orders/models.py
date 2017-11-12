@@ -47,6 +47,9 @@ class BaseOrderDetail(EmbeddedDocument):
         return self.product_and_attribute.product.get_product_attribute_size(
             self.product_and_attribute.product_attribute)
 
+    def get_product_id(self):
+        return self.product_and_attribute.product.id
+
 
 class CartProductDetail(BaseOrderDetail):
     """
