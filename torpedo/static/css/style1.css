@@ -1,0 +1,62 @@
+.account-top input[type="email"], .register-top-grid input[type="email"] {
+    padding: 1em;
+    width: 100%;
+    background: none;
+    border: 1px solid #A09F9F;
+    outline: none;
+    font-size: 1em;
+}
+
+.close_box{
+  background: url('../images/close_1.png') no-repeat 0px 0px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 0px;
+  -webkit-transition: color 0.2s ease-in-out;
+  -moz-transition: color 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+
+.img-custom{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.img-custom1{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-list1{
+  width:160px;
+  height:160px;
+  overflow:hidden;
+}
+
+.cart-item-info{
+  float: none;
+  width:auto;
+  padding-top: 10px;
+}
+
+.cart-item img {
+  width:auto;
+}
+
+.product-list{
+  width:auto;
+  height:220px;
+  overflow:hidden;
+  margin-top:10px;
+}
