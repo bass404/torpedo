@@ -1,0 +1,121 @@
+{% extends "users/settings/base.html" %}
+
+{% block page_head %}
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <table class="table table-hover table-responsive" border="1">
+                    <thead>
+                    <tr>
+                        <th>OrderId</th>
+                        <th>User Id</th>
+                        <th>Date Created</th>
+                        <th>Date Updated</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for order in orders%}
+                    <tr>
+                        <td>
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse_{{order.id}}">
+                                {{order.id}}
+                            </a>
+                            <div id="collapse_{{order.id}}" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <table class="table table-hover2 table-responsive" border="1">
+                                        <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Attribute Id</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Discount</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%for each_buy in order.product_details%}
+                                        <tr>
+                                            <td><a href="#">{{each_buy.product_and_attribute.product.name}}</a></td>
+                                            <td><a href="#">{{each_buy.product_and_attribute.product_attribute}}</a>
+                                            </td>
+                                            <td>{{each_buy.quantity}}</td>
+                                            <td>{{each_buy.price}}</td>
+                                            <td>{{each_buy.discount}}</td>
+                                        </tr>
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse_{{order.id}}">
+                                {{order.user.id}}
+                            </a>
+                        </td>
+
+                        <td>
+                            {{order.created_on}}
+                        </td>
+
+                        <td>
+                            {{order.updated_on}}
+                        </td>
+
+                        <td>
+                            <div class="container">
+                                <div class="btn-group"><i class="dropdown-arrow dropdown-arrow-inverse"></i>
+                                    <button class="btn btn-primary">
+
+                                        {{order.status}}
+                                    </button>
+                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span
+                                            class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-inverse">
+                                        <li>
+                                            <a href="{{ url_for('order_status_change',order_id = order.id,status='PENDING') }}" method="POST">PENDING</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url_for('order_status_change',order_id = order.id,status='DELIVERED') }}" method="POST">DELIVERED</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url_for('order_status_change',order_id = order.id,status='ON GOING') }}" method="POST">ON GOING</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </h4>
+        </div>
+
+    </div>
+</div>
+
+</div>
+<br/>
+
+{% endblock %}
