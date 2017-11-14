@@ -56,7 +56,7 @@ def user_order_shipping_view():
 @torpedo_app.route("/user/shipping_address_modify/<address_id>", methods=["GET", "POST"])
 @login_required
 def modify_shipping_address_view(address_id):
-    shipping_address = UserAddress.objects(user=current_user.id).first()
+    shipping_address = UserAddress.objects(id=address_id)[0]
     if shipping_address:
 
         form = UserAddressForm()
