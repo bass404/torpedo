@@ -81,7 +81,7 @@ class PriceDetailsMixin():
 
     def get_details(self):
         date = datetime.now().strftime("%Y-%m-%d")
-        shipping_address = "New Addresss"
+        #shipping_address = self.shipping_address
         no_items = self.get_number_of_items()
 
         total_price = sum([x.price for x in self.product_details])
@@ -93,7 +93,7 @@ class PriceDetailsMixin():
 
         shopping_details = {
             "date": date,
-            "address": shipping_address,
+         #   "address": shipping_address,
             "no_items": no_items,
             "total": total_price,
             "discount": total_discount,
@@ -122,7 +122,7 @@ class Order(Document, PriceDetailsMixin):
     user = ReferenceField("users.User")
     product_details = EmbeddedDocumentListField(OrderDetail)
     status = StringField()
-
+    address_id = StringField()
     # Don't use function call directly
     # See https://stackoverflow.com/questions/2771676/django-datetime-issues-default-datetime-now
     created_on = DateTimeField(default=datetime.now)

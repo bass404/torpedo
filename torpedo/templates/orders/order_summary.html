@@ -63,15 +63,8 @@
 
             <div class="col-md-4">.
 
-                <p>
-                <h4>Shipping Address:</h4><br/>
-                John Carter,<br/>
-                1500 Sparkman Drive,<br/>
-                HSV, AL, 35816<br/>
-                Phone: +1-256-527-1111<br/>
-                <br/>
-                {{ order_details.address}}
-                </p>
+               <p><b>{{ user.first_name }} {{ user.last_name }}</b></p>
+                <p>{{ shipping_address.id }}</p>
                 <a class="order" href="{{ url_for('products_list_view') }}">Continue Shopping</a>
             </div>
         </div>

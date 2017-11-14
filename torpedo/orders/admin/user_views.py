@@ -14,6 +14,7 @@ from torpedo.users.forms import UserAddressForm
 def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
+    cart.shipping_address = ""
     if cart:
         return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details())
     else:
@@ -97,20 +98,30 @@ def modify_shipping_address_view(address_id):
             return render_template("orders/shipping_new.html", form=form, heading="Add shipping address")
 
 
-@torpedo_app.route("/user/order", methods=["GET"])
+@torpedo_app.route("/user/order/<address_id>", methods=["GET", "POST"])
 @login_required
-def user_order_view():
+def user_order_view(address_id):
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details())
+    shipping_address = UserAddress.objects(id=address_id)[0]
+    if shipping_address:
+        #user = current_user
+        #cart.shipping_address = shipping_address
+        #cart.save()
+        return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
 
 
-@torpedo_app.route("/user/order/summary", methods=["GET"])
+@torpedo_app.route("/user/order/summary/<address_id>", methods=["GET", "POST"])
 @login_required
-def user_ordersummary_view():
+def user_ordersummary_view(address_id):
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details())
+    shipping_address = UserAddress.objects(id=address_id)[0]
+    if shipping_address:
+        #user = current_user
+        #cart.shipping_address = shipping_address
+        #cart.save()
+        return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details(),user=current_user,shipping_address=shipping_address)
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
@@ -156,13 +167,13 @@ def add_product_to_cart(product_id, attribute_id):
     return redirect(url_for('user_checkout_view'))
 
 
-@torpedo_app.route("/order/product/add/")
+@torpedo_app.route("/order/product/add/<address_id>")
 @login_required
-def add_product_to_order():
+def add_product_to_order(address_id):
     # Fetch the cart objects from the session
     cart = Cart.objects(user=current_user.id).first()
     # Create the Order object
-    order = Order(user=current_user.id, status='PENDING')
+    order = Order(user=current_user.id, status='PENDING',address_id=address_id)
     for each_product_attrb in cart.product_details:
         order_detail = OrderDetail(id=each_product_attrb.id,
                                    product_and_attribute=each_product_attrb.product_and_attribute,
@@ -176,8 +187,9 @@ def add_product_to_order():
     order.save()
     cart.delete()
     # TODO: This can be redirected to a page with a thank you note
+    shipping_address = UserAddress.objects(id=address_id)[0]
     return render_template("orders/order_summary.html", products=order.product_details,
-                           order_details=order.get_details())
+                           order_details=order.get_details(),user=current_user,shipping_address=shipping_address)
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
