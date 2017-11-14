@@ -2,25 +2,33 @@
 
 {% block container %}
 <div class="container">
-  <div class="check">
-    <div class="row">
-      <div class="col-md-8" align="center">
-        <h4><strong>Shipping Address:</strong></h4>
-        <div>
-          <p>{{ user.first_name }} {{ user.last_name }}</p>
-          <p>{{ shipping_address.address }}</p>
-          <p>{{ shipping_address.address_1 }} {{ shipping_address.address_2 }} </p>
-          <p>{{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}</p>
-          <p>ZIP-code: {{ shipping_address.zipcode }}</p>
-          <p>Phone number.: {{ user.phone }}</p>
-        </div>
-      </div>
+    <div class="check">
+        <div class="row">
+            <div class="col-md-8" align="center">
+                <h4><strong>Shipping Address:</strong></h4>
+                <div>
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                    <p>{{ shipping_address.address }},</p>
+                    {% if shipping_address.address_1 %}
+                    <p>{{ shipping_address.address_1 }},
+                        {% endif %}
+                        {% if shipping_address.address_2 %}
+                        {{ shipping_address.address_2 }}, </p>
+                        {% endif %}
+                    <p>{{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}</p>
+                    <p>ZIP-code: {{ shipping_address.zipcode }}</p>
 
-      <div class="col-md-4">
-        <a class="continue" href="{{ url_for('user_address_detail_view', address_id=shipping_address.id) }}">Edit Shipping Address</a>
-        <a class="continue" href="{{ url_for('user_order_view') }}">Continue to Checkout</a>
-      </div>
+                    {% if user.phone %}
+                    <p>Phone number.: {{ user.phone }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <a class="continue" href="{{ url_for('modify_shipping_address_view') }}">Edit Shipping Address</a>
+                <a class="continue" href="{{ url_for('user_order_view') }}">Continue to Checkout</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

@@ -49,7 +49,45 @@ def user_order_shipping_view():
 
             return redirect(url_for("user_order_shipping_view"))
         else:
-            return render_template("orders/shipping_new.html", form = form, heading="Add shipping address")
+            return render_template("orders/shipping_new.html", form=form, heading="Add shipping address")
+
+
+@torpedo_app.route("/user/shipping_address_modify", methods=["GET", "POST"])
+@login_required
+def modify_shipping_address_view():
+    shipping_address = UserAddress.objects(user=current_user.id).first()
+    if shipping_address:
+
+        form = UserAddressForm()
+
+        if request.method == "POST":
+            # Create an address entry for user
+            user_address = UserAddress(
+                user=current_user.id,
+                address=form.data["address"],
+                address_1=form.data["address_1"],
+                address_2=form.data["address_2"],
+                city=form.data["city"],
+                state=form.data["state"],
+                zipcode=form.data["zipcode"],
+                country=form.data["country"]
+            )
+
+            # Save user model
+            user_address.save()
+
+            return redirect(url_for("user_order_shipping_view"))
+        else:
+
+            form.address.data = shipping_address.address
+            form.address_1.data = shipping_address.address_1
+            form.address_2.data = shipping_address.address_2
+            form.city.data = shipping_address.city
+            form.state.data = shipping_address.state
+            form.zipcode.data = shipping_address.zipcode
+            form.country.data = shipping_address.country
+
+            return render_template("orders/shipping_new.html", form=form, heading="Add shipping address")
 
 
 @torpedo_app.route("/user/order", methods=["GET"])
