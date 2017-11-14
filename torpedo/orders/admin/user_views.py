@@ -145,6 +145,7 @@ def add_product_to_cart(product_id, attribute_id):
         discount=product_attribute.discount
     )
 
+
     # Check if a cart for user already exits
     cart = Cart.objects(user=current_user.id).first()
     if cart:
