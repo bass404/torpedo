@@ -29,7 +29,7 @@
             <h3>
               <div class="total">
                 <!-- Insert count here -->
-                <span>0</span>
+                <span>{{current_user.get_number_of_items_in_cart()}}</span>
                 <span>Items</span>
               </div>
               <img src="{{ url_for('static', filename='images/cart.png') }}" alt=""/>

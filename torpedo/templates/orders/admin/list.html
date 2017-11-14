@@ -9,18 +9,17 @@
         <tr>
           <th>Order Id </th>
           <th>User Id</th>
+          <th>User Name</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
         {% for order in orders %}
         <tr>
-          <td>
-           {{ order.id }}
-          </td>
+          <td>{{ order.id }}</td>
           <td>{{ order.user.id }}</td>
+          <td>{{ order.user.get_name() }}</td>
           <td>{{ order.status }}</td>
-
         </tr>
         {% endfor %}
       </tbody>

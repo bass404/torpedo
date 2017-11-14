@@ -25,9 +25,10 @@ def user_order_shipping_view():
     # Obtain the products in cart for the user
     shipping_address = UserAddress.objects(user=current_user.id).first()
     if not shipping_address:
-        return render_template("orders/shipping_new.html")
+        # Redirect the user to the page where they can add their default
+        return redirect(url_for("user_address_add_view"))
     else:
-        return render_template("orders/shipping.html", shipping_address=shipping_address)
+        return render_template("orders/shipping.html", shipping_address=shipping_address, user=current_user)
 
 
 @torpedo_app.route("/user/order", methods=["GET"])

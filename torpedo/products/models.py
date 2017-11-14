@@ -57,7 +57,7 @@ class Product(Document):
         return info
 
     @property
-    def get_Price(self):
+    def get_price(self):
         """
         Return the short product description of first url
         """

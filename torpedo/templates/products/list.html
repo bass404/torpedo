@@ -14,7 +14,7 @@
 
     <p class="tun">{{product.get_Description}}</p>
 
-    <a href="{{ url_for('product_detail_view',product_id=product.id) }}" class="item_add"><p class="number item_price"><i> </i>{{product.get_Price}}</p></a>
+    <a href="{{ url_for('product_detail_view',product_id=product.id) }}" class="item_add"><p class="number item_price"><i> </i>{{product.get_price}}</p></a>
   </div>
   {% endfor %}
 

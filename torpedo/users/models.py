@@ -54,6 +54,12 @@ class User(Document):
     def get_id(self):
         return str(self.id)
 
+    def get_name(self):
+        if self.first_name and self.last_name:
+            return "{} {}".format(self.first_name, self.last_name)
+        else:
+            return ""
+
     def set_password(self, password):
         self.password = hash_password(password)
 
@@ -62,6 +68,29 @@ class User(Document):
         Verify if password if correct
         """
         return pbkdf2_sha256.verify(password, self.password)
+
+    def get_user_cart(self):
+        """
+        Return the cart model associated with the user
+        """
+
+        # Don't place it at the top of the file in order to avoid cyclic
+        # dependency errors
+        from torpedo.orders.models import Cart
+
+        cart = Cart.objects.filter(user=self).first()
+        return cart
+
+    def get_number_of_items_in_cart(self):
+        """
+        Return the number of items in the user's cart
+        """
+
+        cart = self.get_user_cart()
+        if cart:
+            return cart.get_number_of_items()
+        else:
+            return 0
 
 
 class UserRole(Document):

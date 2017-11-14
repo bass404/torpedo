@@ -23,14 +23,14 @@
             <img src="{{ product.get_image_url }}" class="img-responsive img-custom1" alt=""/>
           </div>
           <div class="cart-item-info">
-            <h3><a href="#">{{product.get_display_name}}</a><span>Model No: 3578</span></h3>
+            <h3><a href="{{ url_for('product_detail_view', product_id=product.get_product_id()) }}">{{product.get_display_name}}</a><span>Model No: 3578</span></h3>
             <ul class="qty">
               <li><p>Size : {{product.get_size}}</p></li>
               <li><p>Qty : {{product.quantity}}</p></li>
             </ul>
 
             <div class="delivery">
-              <p>Price : {{product.get_price}}</p>
+              <p>Price : {{product.price}}</p>
               <span>Delivered in 2-3 bussiness days</span>
               <div class="clearfix"></div>
             </div>
@@ -42,7 +42,7 @@
 
     </div>
     <div class="col-md-3 cart-total">
-      <a class="continue" href="{{ url_for('products_list_view') }}">Continue to basket</a>
+      <a class="continue" href="{{ url_for('products_list_view') }}">Continue shopping</a>
       <div class="price-details">
         <h3>Price Details</h3>
         <span>Total</span>
@@ -63,7 +63,7 @@
 
 
       <div class="clearfix"></div>
-      <a class="order" href="{{ url_for('user_order_shipping_view') }}">Continue</a>
+      <a class="order" href="{{ url_for('user_order_shipping_view') }}">Place order</a>
       <div class="total-item">
         <h3>OPTIONS</h3>
         <h4>COUPONS</h4>

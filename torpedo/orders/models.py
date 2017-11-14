@@ -47,6 +47,9 @@ class BaseOrderDetail(EmbeddedDocument):
         return self.product_and_attribute.product.get_product_attribute_size(
             self.product_and_attribute.product_attribute)
 
+    def get_product_id(self):
+        return self.product_and_attribute.product.id
+
 
 class CartProductDetail(BaseOrderDetail):
     """
@@ -67,14 +70,22 @@ class PriceDetailsMixin():
     Base class for implementing method for price details
     """
 
+    def get_number_of_items(self):
+        """
+        Return the number of items in product_details
+
+        NOTE: Return the number of unique items only. Does not uses quantity
+        """
+
+        return len(self.product_details)
+
     def get_details(self):
         date = datetime.now().strftime("%Y-%m-%d")
         shipping_address = "New Addresss"
-        no_items = len(self.product_details)
+        no_items = self.get_number_of_items()
 
-        prices, discounts = zip(*[(x.price, x.discount) for x in self.product_details])
-        total_price = sum(prices)
-        total_discount = sum(discounts)
+        total_price = sum([x.price for x in self.product_details])
+        total_discount = sum([car.discount for car in self.product_details])
 
         shipping_charge = 15
         tax = (total_price + shipping_charge) * 0.15
