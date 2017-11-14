@@ -6,6 +6,8 @@ from mongoengine import (
     EmbeddedDocumentField, SequenceField
 )
 
+from torpedo.users.models import AddressMixin
+
 
 class ProductAndAttribute(EmbeddedDocument):
     """
@@ -114,6 +116,10 @@ class Cart(Document, PriceDetailsMixin):
     product_details = EmbeddedDocumentListField(CartProductDetail)
 
 
+class OrderAddress(EmbeddedDocument, AddressMixin):
+    pass
+
+
 class Order(Document, PriceDetailsMixin):
     """
     Model to hold the order detail for a user
@@ -122,7 +128,7 @@ class Order(Document, PriceDetailsMixin):
     user = ReferenceField("users.User")
     product_details = EmbeddedDocumentListField(OrderDetail)
     status = StringField()
-    address_id = StringField()
+    address = EmbeddedDocumentField(OrderAddress)
     # Don't use function call directly
     # See https://stackoverflow.com/questions/2771676/django-datetime-issues-default-datetime-now
     created_on = DateTimeField(default=datetime.now)
