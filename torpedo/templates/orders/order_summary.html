@@ -64,7 +64,19 @@
             <div class="col-md-4">.
 
                <p><b>{{ user.first_name }} {{ user.last_name }}</b></p>
-                <p>{{ shipping_address.id }}</p>
+                <p>{{ shipping_address.address }},</p>
+                {% if shipping_address.address_1 %}
+                <p>{{ shipping_address.address_1 }},
+                    {% endif %}
+                    {% if shipping_address.address_2 %}
+                    {{ shipping_address.address_2 }}, </p>
+                {% endif %}
+                <p>{{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}</p>
+                <p>ZIP-code: {{ shipping_address.zipcode }}</p>
+
+                {% if user.phone %}
+                <p>Phone number: {{ user.phone }}</p>
+                {% endif %}
                 <a class="order" href="{{ url_for('products_list_view') }}">Continue Shopping</a>
             </div>
         </div>

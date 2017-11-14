@@ -105,9 +105,6 @@ def user_order_view(address_id):
     cart = Cart.objects(user=current_user.id).first()
     shipping_address = UserAddress.objects(id=address_id)[0]
     if shipping_address:
-        #user = current_user
-        #cart.shipping_address = shipping_address
-        #cart.save()
         return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
 
 
@@ -118,9 +115,6 @@ def user_ordersummary_view(address_id):
     cart = Cart.objects(user=current_user.id).first()
     shipping_address = UserAddress.objects(id=address_id)[0]
     if shipping_address:
-        #user = current_user
-        #cart.shipping_address = shipping_address
-        #cart.save()
         return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details(),user=current_user,shipping_address=shipping_address)
 
 
