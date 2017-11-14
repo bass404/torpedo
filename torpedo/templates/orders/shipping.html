@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-md-4">
-                <a class="continue" href="{{ url_for('modify_shipping_address_view') }}">Edit Shipping Address</a>
+                <a class="continue" href="{{ url_for('modify_shipping_address_view',address_id=shipping_address.id) }}">Edit Shipping Address</a>
                 <a class="continue" href="{{ url_for('user_order_view') }}">Continue to Checkout</a>
             </div>
         </div>

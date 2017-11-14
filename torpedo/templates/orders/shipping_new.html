@@ -14,7 +14,7 @@
             {% include "form_messages.html" %}
             {% if form.address_id.data %}
             <form class="form-horizontal"
-                  action="{{url_for('user_address_detail_view', address_id=form.address_id.data)}}"
+                  action="{{url_for('modify_shipping_address_view', address_id=form.address_id.data)}}"
                   method="POST">
                 {% else %}
                 <form class="form-horizontal" action="{{url_for('user_order_shipping_view')}}" method="POST">
