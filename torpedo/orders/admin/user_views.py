@@ -1,4 +1,4 @@
-from flask import render_template, abort, redirect, url_for
+from flask import render_template, abort, redirect, url_for, request
 from flask_login import current_user, login_required
 import time
 
@@ -6,6 +6,7 @@ from torpedo import torpedo_app
 from torpedo.products.models import Product
 from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart, OrderDetail, Order
 from torpedo.users.models import UserAddress
+from torpedo.users.forms import UserAddressForm
 
 
 @torpedo_app.route("/user/checkout", methods=["GET"])
@@ -19,16 +20,36 @@ def user_checkout_view():
         return render_template("orders/checkout_empty.html")
 
 
-@torpedo_app.route("/user/shipping_address", methods=["GET"])
+@torpedo_app.route("/user/shipping_address", methods=["GET", "POST"])
 @login_required
 def user_order_shipping_view():
     # Obtain the products in cart for the user
     shipping_address = UserAddress.objects(user=current_user.id).first()
-    if not shipping_address:
-        # Redirect the user to the page where they can add their default
-        return redirect(url_for("user_address_add_view"))
-    else:
+    if shipping_address:
         return render_template("orders/shipping.html", shipping_address=shipping_address, user=current_user)
+    else:
+
+        form = UserAddressForm()
+
+        if request.method == "POST":
+            # Create an address entry for user
+            user_address = UserAddress(
+                user=current_user.id,
+                address=form.data["address"],
+                address_1=form.data["address_1"],
+                address_2=form.data["address_2"],
+                city=form.data["city"],
+                state=form.data["state"],
+                zipcode=form.data["zipcode"],
+                country=form.data["country"]
+            )
+
+            # Save user model
+            user_address.save()
+
+            return redirect(url_for("user_order_shipping_view"))
+        else:
+            return render_template("orders/shipping_new.html", form = form, heading="Add shipping address")
 
 
 @torpedo_app.route("/user/order", methods=["GET"])
@@ -99,19 +120,19 @@ def add_product_to_order():
     order = Order(user=current_user.id, status='PENDING')
     for each_product_attrb in cart.product_details:
         order_detail = OrderDetail(id=each_product_attrb.id,
-            product_and_attribute = each_product_attrb.product_and_attribute,
-            price = each_product_attrb.price,
-            discount = each_product_attrb.discount,
-            quantity = each_product_attrb.quantity)
+                                   product_and_attribute=each_product_attrb.product_and_attribute,
+                                   price=each_product_attrb.price,
+                                   discount=each_product_attrb.discount,
+                                   quantity=each_product_attrb.quantity)
         order.product_details.append(order_detail)
 
-
     # Save the card object
-    #TODO: Check for transaction control
+    # TODO: Check for transaction control
     order.save()
     cart.delete()
-    #TODO: This can be redirected to a page with a thank you note
-    return render_template("orders/order_summary.html", products=order.product_details, order_details=order.get_details())
+    # TODO: This can be redirected to a page with a thank you note
+    return render_template("orders/order_summary.html", products=order.product_details,
+                           order_details=order.get_details())
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])

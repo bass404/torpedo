@@ -1,0 +1,80 @@
+{% extends "base_templates/base.html" %}
+
+{% block container %}
+<div class="container">
+    <div class="account">
+        <div class="col-sm-9">
+            <div class="row" align="center">
+                <span class="col-sm-3">&nbsp;</span>
+                <span class="col-sm-6">
+                    <h3 class="custom-access">{{ heading }}</h3><br/>
+                </span>
+                <span class="col-sm-3">&nbsp;</span>
+            </div>
+            {% include "form_messages.html" %}
+            {% if form.address_id.data %}
+            <form class="form-horizontal"
+                  action="{{url_for('user_address_detail_view', address_id=form.address_id.data)}}"
+                  method="POST">
+                {% else %}
+                <form class="form-horizontal" action="{{url_for('user_order_shipping_view')}}" method="POST">
+                    {% endif %}
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            {{ form.address_id(class="form-control input-lg")}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="address">Address:</label>
+                        <div class="col-sm-10">
+                            {{ form.address(class="form-control input-lg",required=required)}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">Address 1:</label>
+                        <div class="col-sm-10">
+                            {{ form.address_1(class="form-control input-lg")}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">Address 2:</label>
+                        <div class="col-sm-10">
+                            {{ form.address_2(class="form-control input-lg")}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">City:</label>
+                        <div class="col-sm-10">
+                            {{ form.city(class="form-control input-lg",required=required)}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">State/Province:</label>
+                        <div class="col-sm-10">
+                            {{ form.state(class="form-control input-lg",required=required)}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">Zipcode/Postalcode:</label>
+                        <div class="col-sm-10">
+                            {{ form.zipcode(class="form-control input-lg",required=required)}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="">Country:</label>
+                        <div class="col-sm-10">
+                            {{ form.country(class="form-control input-lg",required=required)}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
