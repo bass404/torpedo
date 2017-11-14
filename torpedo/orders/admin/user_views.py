@@ -4,7 +4,7 @@ import time
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
-from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart, OrderDetail, Order
+from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart, OrderDetail, Order, OrderAddress
 from torpedo.users.models import UserAddress
 from torpedo.users.forms import UserAddressForm
 
@@ -115,7 +115,7 @@ def user_ordersummary_view(address_id):
     cart = Cart.objects(user=current_user.id).first()
     shipping_address = UserAddress.objects(id=address_id)[0]
     if shipping_address:
-        return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details(),user=current_user,shipping_address=shipping_address)
+        return render_template("orders/order_summary.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
 
 
 @torpedo_app.route("/order/cart/product/add/<product_id>/<attribute_id>/")
@@ -145,7 +145,6 @@ def add_product_to_cart(product_id, attribute_id):
         discount=product_attribute.discount
     )
 
-
     # Check if a cart for user already exits
     cart = Cart.objects(user=current_user.id).first()
     if cart:
@@ -167,8 +166,24 @@ def add_product_to_cart(product_id, attribute_id):
 def add_product_to_order(address_id):
     # Fetch the cart objects from the session
     cart = Cart.objects(user=current_user.id).first()
+
+    # Obtain the address object for the user
+    address_obj = UserAddress.objects(user=current_user.id, id=address_id).first()
+
+    # Copy the attributes to OrderAddress
+    # NOTE operator overloading might be useful
+    orderaddress_obj = OrderAddress(
+        address=address_obj.address,
+        address_1=address_obj.address_1,
+        address_2=address_obj.address_2,
+        city=address_obj.city,
+        state=address_obj.state,
+        zipcode=address_obj.zipcode,
+        country=address_obj.country
+    )
+
     # Create the Order object
-    order = Order(user=current_user.id, status='PENDING',address_id=address_id)
+    order = Order(user=current_user.id, status='PENDING', address=orderaddress_obj)
     for each_product_attrb in cart.product_details:
         order_detail = OrderDetail(id=each_product_attrb.id,
                                    product_and_attribute=each_product_attrb.product_and_attribute,
@@ -184,7 +199,7 @@ def add_product_to_order(address_id):
     # TODO: This can be redirected to a page with a thank you note
     shipping_address = UserAddress.objects(id=address_id)[0]
     return render_template("orders/order_summary.html", products=order.product_details,
-                           order_details=order.get_details(),user=current_user,shipping_address=shipping_address,order_id=order.id)
+                           order_details=order.get_details(), user=current_user, shipping_address=shipping_address, order_id=order.id)
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
