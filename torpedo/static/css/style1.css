@@ -60,3 +60,10 @@
   overflow:hidden;
   margin-top:10px;
 }
+.custom-font{
+  font-size:14pt;
+}
+.custom-success{
+  font-size:16pt;
+  padding: 14px;
+}

@@ -3,8 +3,18 @@
 {% block container %}
 <div class="container">
     <div class="check">
+
+        <div class="row">
+            <span class="col-md-3">&nbsp;</span>
+            <h1 class="col-md-6 label label-success">
+                <span class="center-block custom-success">Congratulations! Your order has been placed.</span>
+            </h1>
+            <span class="col-md-3">&nbsp;</span>
+        </div>
+
         <h1>Order Summary</h1>
-        Date: {{ order_details.date }}<br/><br/>
+        <span>Order-id: #O102R23</span><br/>
+        <span>Date: {{ order_details.date }}</span><br/><br/>
         <div class="row">
             <div class="col-md-8">
                 <table class="table">
