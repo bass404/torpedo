@@ -183,7 +183,7 @@ def add_product_to_order(address_id):
     # TODO: This can be redirected to a page with a thank you note
     shipping_address = UserAddress.objects(id=address_id)[0]
     return render_template("orders/order_summary.html", products=order.product_details,
-                           order_details=order.get_details(),user=current_user,shipping_address=shipping_address)
+                           order_details=order.get_details(),user=current_user,shipping_address=shipping_address,order_id=order.id)
 
 
 @torpedo_app.route("/order/cart/product/delete/<product_attribute_id>", methods=["GET"])
