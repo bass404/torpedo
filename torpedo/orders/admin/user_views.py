@@ -21,13 +21,14 @@ def user_checkout_view():
         return render_template("orders/checkout_empty.html")
 
 
-@torpedo_app.route("/user/shipping_address", methods=["GET", "POST"])
+@torpedo_app.route("/user/shipping_address/<add_new>", methods=["GET", "POST"])
 @login_required
-def user_order_shipping_view():
+def user_order_shipping_view(add_new):
     # Obtain the products in cart for the user
-    shipping_address = UserAddress.objects(user=current_user.id).first()
-    if shipping_address:
-        return render_template("orders/shipping.html", shipping_address=shipping_address, user=current_user)
+    #shipping_address = UserAddress.objects(user=current_user.id).first()
+    user_addresses = UserAddress.objects(user=current_user.id)
+    if user_addresses and add_new == 'p':
+        return render_template("orders/shipping.html", addresses=user_addresses, user=current_user)
     else:
 
         form = UserAddressForm()
@@ -48,7 +49,7 @@ def user_order_shipping_view():
             # Save user model
             user_address.save()
 
-            return redirect(url_for("user_order_shipping_view"))
+            return redirect(url_for("user_order_shipping_view",add_new="p"))
         else:
             return render_template("orders/shipping_new.html", form=form, heading="Add shipping address")
 

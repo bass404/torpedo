@@ -17,7 +17,7 @@
                   action="{{url_for('modify_shipping_address_view', address_id=form.address_id.data)}}"
                   method="POST">
                 {% else %}
-                <form class="form-horizontal" action="{{url_for('user_order_shipping_view')}}" method="POST">
+                <form class="form-horizontal" action="{{url_for('user_order_shipping_view',add_new='n')}}" method="POST">
                     {% endif %}
                     {{ form.hidden_tag() }}
                     <div class="form-group">
