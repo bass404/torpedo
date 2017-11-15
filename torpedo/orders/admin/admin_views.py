@@ -1,6 +1,6 @@
 from torpedo.users.utils import admin_user_required
 from torpedo import torpedo_app
-from flask_login import login_required
+from flask_login import login_required,current_user
 from flask import render_template
 
 from torpedo.orders.models import Order
@@ -32,8 +32,15 @@ def order_status_change(order_id,status):
 
 
 
-@torpedo_app.route("/collapse", methods=["GET"])
-def collapse_test():
+@torpedo_app.route("/order/list/<order_id>", methods=["GET"])
+def order_detail(order_id):
     #TODO: have to do pagination from query
-    orders = Order.objects()
-    return render_template("orders/admin/collapse.html", heading="List of orders",orders = orders)
+    order = Order.objects(id=order_id).first()
+    return render_template("orders/admin/detail.html", heading="Order detail",order = order)
+
+
+@torpedo_app.route("/order/user/list/", methods=["GET"])
+def user_order_detail():
+    #TODO: have to do pagination from query
+    order = Order.objects(user=current_user.id).first()
+    return render_template("orders/admin/detail.html", heading="Order detail",order = order)
