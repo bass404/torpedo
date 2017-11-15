@@ -122,12 +122,11 @@ class UserRole(Document):
         max_length=1, choices=status_choices, default=ROLE_ACTIVE)
 
 
-class UserAddress(Document):
+class AddressMixin():
     """
     Address for user
     """
 
-    user = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)
     address = StringField(required=True)
     address_1 = StringField()
     address_2 = StringField()
@@ -135,3 +134,8 @@ class UserAddress(Document):
     state = StringField()
     zipcode = StringField()
     country = StringField(required=True)
+
+
+class UserAddress(Document, AddressMixin):
+
+    user = ReferenceField(User, reverse_delete_rule=CASCADE, required=True)

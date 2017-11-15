@@ -3,8 +3,18 @@
 {% block container %}
 <div class="container">
     <div class="check">
+
+        <div class="row">
+            <span class="col-md-3">&nbsp;</span>
+            <h1 class="col-md-6 label label-success">
+                <span class="center-block custom-success">Congratulations! Your order has been placed.</span>
+            </h1>
+            <span class="col-md-3">&nbsp;</span>
+        </div>
+
         <h1>Order Summary</h1>
-        Date: {{ order_details.date }}<br/><br/>
+        <span>Order-id: #{{ order_id }}</span><br/>
+        <span>Date: {{ order_details.date }}</span><br/><br/>
         <div class="row">
             <div class="col-md-8">
                 <table class="table">
@@ -53,15 +63,20 @@
 
             <div class="col-md-4">.
 
-                <p>
-                <h4>Shipping Address:</h4><br/>
-                John Carter,<br/>
-                1500 Sparkman Drive,<br/>
-                HSV, AL, 35816<br/>
-                Phone: +1-256-527-1111<br/>
-                <br/>
-                {{ order_details.address}}
-                </p>
+               <p><b>{{ user.first_name }} {{ user.last_name }}</b></p>
+                <p>{{ shipping_address.address }},</p>
+                {% if shipping_address.address_1 %}
+                <p>{{ shipping_address.address_1 }},
+                    {% endif %}
+                    {% if shipping_address.address_2 %}
+                    {{ shipping_address.address_2 }}, </p>
+                {% endif %}
+                <p>{{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}</p>
+                <p>ZIP-code: {{ shipping_address.zipcode }}</p>
+
+                {% if user.phone %}
+                <p>Phone number: {{ user.phone }}</p>
+                {% endif %}
                 <a class="order" href="{{ url_for('products_list_view') }}">Continue Shopping</a>
             </div>
         </div>

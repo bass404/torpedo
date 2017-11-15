@@ -51,18 +51,22 @@
                 </table>
             </div>
 
-            <div class="col-md-4">.
+            <div class="col-md-4">
+                <p><b>{{ user.first_name }} {{ user.last_name }}</b></p>
+                <p>{{ shipping_address.address }},</p>
+                {% if shipping_address.address_1 %}
+                <p>{{ shipping_address.address_1 }},
+                    {% endif %}
+                    {% if shipping_address.address_2 %}
+                    {{ shipping_address.address_2 }}, </p>
+                {% endif %}
+                <p>{{ shipping_address.city }}, {{ shipping_address.state }}, {{ shipping_address.country }}</p>
+                <p>ZIP-code: {{ shipping_address.zipcode }}</p>
 
-                <p>
-                <h4>Shipping Address:</h4><br/>
-                John Carter,<br/>
-                1500 Sparkman Drive,<br/>
-                HSV, AL, 35816<br/>
-                Phone: +1-256-527-1111<br/>
-                <br/>
-                {{ cart_details.address}}
-                </p>
-                <a class="order" href="{{ url_for('add_product_to_order') }}">Confirm Order</a>
+                {% if user.phone %}
+                <p>Phone number: {{ user.phone }}</p>
+                {% endif %}
+                <a class="order" href="{{ url_for('add_product_to_order',address_id=shipping_address.id) }}">Confirm Order</a>
             </div>
         </div>
     </div>
