@@ -128,3 +128,10 @@ def product_delete_cart(product_attribute_id):
 
     # Redirect user to checkout page
     return redirect(url_for('user_checkout_view'))
+
+@torpedo_app.route("/order/user/list/", methods=["GET"])
+def user_order_detail():
+    #TODO: have to do pagination from query
+    orders = Order.objects(user=current_user.id)
+    return render_template("orders/admin/user_detail.html", heading="Order detail",orders = orders)
+
