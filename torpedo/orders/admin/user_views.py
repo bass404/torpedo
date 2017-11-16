@@ -79,7 +79,7 @@ def modify_shipping_address_view(address_id):
                 # Save address
                 user_address.save()
 
-                return redirect(url_for("user_order_shipping_view"))
+                return redirect(url_for("user_order_shipping_view",add_new="p"))
         else:
 
             user_address = UserAddress.objects(id=address_id)[0]
@@ -104,12 +104,16 @@ def modify_shipping_address_view(address_id):
 def user_order_view():
     # Obtain the products in cart for the user
     if request.method == "POST":
-        address_id = request.form['options']
-        print(address_id)
-        cart = Cart.objects(user=current_user.id).first()
-        shipping_address = UserAddress.objects(id=address_id)[0]
-        if shipping_address:
-            return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
+        address_id = request.form['optradio']
+        btnValue = request.form['submitBtn']
+        if btnValue == "Place Order":
+            cart = Cart.objects(user=current_user.id).first()
+            shipping_address = UserAddress.objects(id=address_id)[0]
+            if shipping_address:
+                return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
+
+        elif btnValue == "Edit Shipping Address":
+            return redirect(url_for('modify_shipping_address_view',address_id=address_id))
 
 
 @torpedo_app.route("/user/order/summary/<address_id>", methods=["GET", "POST"])

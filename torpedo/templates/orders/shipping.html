@@ -10,7 +10,12 @@
                     <h4><strong>Shipping Address:</strong></h4>
                     {% for shipping_address in addresses %}
                     <div class="radio">
-                        <label><input type="radio" name="optradio" value="{{ shipping_address.id }}">
+                        <label>
+                            {% if loop.first %}
+                            <input type="radio" name="optradio" value="{{ shipping_address.id }}" checked="checked">
+                            {% else %}
+                            <input type="radio" name="optradio" value="{{ shipping_address.id }}" >
+                            {% endif %}
                             <p>{{ user.first_name }} {{ user.last_name }}</p>
                             <p>{{ shipping_address.address }},</p>
                             {% if shipping_address.address_1 %}
@@ -32,12 +37,12 @@
                 </div>
 
                 <div class="col-md-4">
-                    <a class="continue" href="{{ url_for('modify_shipping_address_view',address_id='') }}">Edit Shipping
-                        Address</a>
+                    <!--<a class="continue" href="{{ url_for('modify_shipping_address_view',address_id='') }}">Edit Shipping
+                        Address</a>-->
+                    <input class="custom-continue" type="submit" name="submitBtn" value="Edit Shipping Address" />
                     <a class="continue" href="{{ url_for('user_order_shipping_view',add_new='n') }}">Add New Shipping
                         Address</a>
-                    <!--<a class="continue" href="{{ url_for('user_order_view') }}">Continue to Checkout</a>-->
-                    <input class="btn continue" type="submit" method="POST" action="{{ url_for('user_order_view') }}" />
+                    <input class="custom-continue" type="submit" name="submitBtn" value="Place Order" />
                 </div>
             </div>
         </form>
