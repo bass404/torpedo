@@ -99,14 +99,17 @@ def modify_shipping_address_view(address_id):
             return render_template("orders/shipping_new.html", form=form, heading="Add shipping address")
 
 
-@torpedo_app.route("/user/order/<address_id>", methods=["GET", "POST"])
+@torpedo_app.route("/user/order", methods=["GET", "POST"])
 @login_required
-def user_order_view(address_id):
+def user_order_view():
     # Obtain the products in cart for the user
-    cart = Cart.objects(user=current_user.id).first()
-    shipping_address = UserAddress.objects(id=address_id)[0]
-    if shipping_address:
-        return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
+    if request.method == "POST":
+        address_id = request.form['options']
+        print(address_id)
+        cart = Cart.objects(user=current_user.id).first()
+        shipping_address = UserAddress.objects(id=address_id)[0]
+        if shipping_address:
+            return render_template("orders/order.html", products=cart.product_details, cart_details=cart.get_details(), user=current_user, shipping_address=shipping_address)
 
 
 @torpedo_app.route("/user/order/summary/<address_id>", methods=["GET", "POST"])

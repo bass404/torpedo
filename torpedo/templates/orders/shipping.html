@@ -3,7 +3,8 @@
 {% block container %}
 <div class="container">
     <div class="check">
-        <form>
+        <form action="{{url_for('user_order_view')}}"
+                  method="POST">
             <div class="row">
                 <div class="col-md-8">
                     <h4><strong>Shipping Address:</strong></h4>
@@ -35,7 +36,8 @@
                         Address</a>
                     <a class="continue" href="{{ url_for('user_order_shipping_view',add_new='n') }}">Add New Shipping
                         Address</a>
-                    <a class="continue" href="{{ url_for('user_order_view',address_id='') }}">Continue to Checkout</a>
+                    <!--<a class="continue" href="{{ url_for('user_order_view') }}">Continue to Checkout</a>-->
+                    <input class="btn continue" type="submit" method="POST" action="{{ url_for('user_order_view') }}" />
                 </div>
             </div>
         </form>
