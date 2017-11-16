@@ -1,10 +1,8 @@
-import random
-
 from flask import render_template, request
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
-from torpedo.products.helpers import get_category_list
+from torpedo.products.helpers import get_category_list, get_products
 
 
 def construct_user_template_dictionary(**kwargs):
@@ -20,16 +18,9 @@ def construct_user_template_dictionary(**kwargs):
 @torpedo_app.route("/products/list", methods=["GET", "POST"])
 def products_list_view():
     if request.method == "GET":
-        products = Product.objects()
 
-        # NOTE when enough products are inserted remove this later
-        number_of_products = len(products)
-        if number_of_products < 9:
-            products = [product for product in products]
-            for i in range(0, 9 - number_of_products):
-                # Randomly insert items into list to make it longer
-                products.append(
-                    products[random.randint(0, number_of_products - 1)])
+        # Helper function to return products
+        products = get_products(9)
 
         return render_template(
             "products/list.html",
