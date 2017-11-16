@@ -33,3 +33,12 @@ def get_category_list(number_of_categories):
     categories = Category.objects()
 
     return categories[:number_of_categories]
+
+
+def get_best_sellers(number_of_products):
+    """
+    Helper function to return the best selling products
+    """
+
+    # Randomly return two products
+    return get_products(2)

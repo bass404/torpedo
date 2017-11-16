@@ -62,35 +62,22 @@
   <div class="of-left-in">
     <h3 class="best">Best Sellers</h3>
   </div>
+  {% for product in best_selling_products %}
   <div class="product-go">
     <div class=" fashion-grid">
-      <a href="single.html"><img class="img-responsive " src="{{ url_for('static', filename='images/p1.jpg') }}" alt=""></a>
-
-    </div>
-    <div class=" fashion-grid1">
-      <h6 class="best2"><a href="single.html" >Lorem ipsum dolor sit
-          amet consectetuer  </a></h6>
-
-      <span class=" price-in1"> $40.00</span>
-    </div>
-
-    <div class="clearfix"> </div>
-  </div>
-  <div class="product-go">
-    <div class=" fashion-grid">
-      <a href="single.html"><img class="img-responsive " src="{{ url_for('static', filename='images/p2.jpg') }}" alt=""></a>
-
+      <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
+        <img class="img-responsive " src="{{ product.get_image_url }}" alt="">
+      </a>
     </div>
     <div class="fashion-grid1">
-      <h6 class="best2"><a href="single.html" >Lorem ipsum dolor sit
-          amet consectetuer </a></h6>
-
-      <span class=" price-in1"> $40.00</span>
+      <h6 class="best2">
+        <a href="{{ url_for('product_detail_view', product_id=product.id) }}" >{{ product.name}}</a>
+      </h6>
+      <span class="price-in1"> {{ product.get_price }}</span>
     </div>
-
     <div class="clearfix"> </div>
   </div>
-
+  {% endfor %}
 </div>
 <div class=" per1">
   <a href="single.html" ><img class="img-responsive" src="{{ url_for('static', filename='images/pro.jpg') }}" alt="">

@@ -2,7 +2,9 @@ from flask import render_template, request
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
-from torpedo.products.helpers import get_category_list, get_products
+from torpedo.products.helpers import (
+    get_category_list, get_products, get_best_sellers
+)
 
 
 def construct_user_template_dictionary(**kwargs):
@@ -11,7 +13,8 @@ def construct_user_template_dictionary(**kwargs):
     """
 
     return {
-        "sidebar_categories": get_category_list(6)
+        "sidebar_categories": get_category_list(6),
+        "best_selling_products": get_best_sellers(2)
     }
 
 
