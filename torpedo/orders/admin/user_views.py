@@ -14,11 +14,12 @@ from torpedo.users.forms import UserAddressForm
 def user_checkout_view():
     # Obtain the products in cart for the user
     cart = Cart.objects(user=current_user.id).first()
-    cart.shipping_address = ""
     if cart:
-        return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details())
-    else:
-        return render_template("orders/checkout_empty.html")
+        cart.shipping_address = ""
+        if cart.product_details:
+            return render_template("orders/checkout.html", products=cart.product_details, cart_details=cart.get_details())
+
+    return render_template("orders/checkout_empty.html")
 
 
 @torpedo_app.route("/user/shipping_address/<add_new>", methods=["GET", "POST"])
