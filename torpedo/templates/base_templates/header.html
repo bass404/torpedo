@@ -51,9 +51,9 @@
       </div>
       <div class=" h_menu4">
         <ul class="memenu skyblue">
-          <li class="active grid"><a class="color8" href="{{ url_for('index') }}">Home</a></li>
-          <li><a class="color1" href="{{ url_for('products_list_view') }}">Shop</a></li>
-          <li><a class="color6" href="{{ url_for('contact_view') }}">Contact</a></li>
+          <li {% if request.path == "/" %} class="active"{% endif %}><a class="color1" href="{{ url_for('index') }}">Home</a></li>
+          <li {% if request.path == "/products/list" %} class="active"{% endif %}><a class="color1" href="{{ url_for('products_list_view') }}">Shop</a></li>
+          <li {% if request.path == "/contact" %} class="active"{% endif %}><a class="color1" href="{{ url_for('contact_view') }}">Contact</a></li>
         </ul>
       </div>
       <div class="clearfix"> </div>
