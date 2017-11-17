@@ -194,47 +194,21 @@ $(window).load(function() {
 </div>
 
 <div class="bottom-product">
+  {% for product in similar_products %}
   <div class="col-md-4 bottom-cd simpleCart_shelfItem">
     <div class="product-at">
-      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/pi3.jpg') }}" alt="">
-
+      <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
+        <img class="img-responsive" src="{{ product.get_image_url }}" alt="">
         <div class="pro-grid">
           <span class="buy-in">Buy Now</span>
       </div></a>
     </div>
 
-    <p class="tun">It is a long established fact that a reader</p>
-    <a href="#" class="item_add">
-      <p class="number item_price">$500.00</p></a>
+    <p class="tun">{{ product.get_Description }}</p>
+    <a href="{{ url_for('product_detail_view', product_id=product.id) }}" class="item_add">
+      <p class="number item_price">{{ product.get_price }}</p></a>
   </div>
-
-  <div class="col-md-4 bottom-cd simpleCart_shelfItem">
-    <div class="product-at">
-      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/pi1.jpg') }}" alt="">
-
-        <div class="pro-grid">
-          <span class="buy-in">Buy Now</span>
-      </div></a>
-    </div>
-
-    <p class="tun">It is a long established fact that a reader</p>
-    <a href="#" class="item_add">
-      <p class="number item_price">$500.00</p></a>
-  </div>
-
-  <div class="col-md-4 bottom-cd simpleCart_shelfItem">
-    <div class="product-at">
-      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/pi4.jpg') }}" alt="">
-
-        <div class="pro-grid">
-          <span class="buy-in">Buy Now</span>
-      </div></a>
-    </div>
-
-    <p class="tun">It is a long established fact that a reader</p>
-    <a href="#" class="item_add">
-      <p class="number item_price">$500.00</p></a>
-  </div>
+  {% endfor %}
 
   <div class="clearfix">
   </div>

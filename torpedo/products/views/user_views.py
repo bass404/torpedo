@@ -14,7 +14,8 @@ def construct_user_template_dictionary(**kwargs):
 
     return {
         "sidebar_categories": get_category_list(6),
-        "best_selling_products": get_best_sellers(2)
+        "best_selling_products": get_best_sellers(2),
+        "similar_products": get_products(3)
     }
 
 
