@@ -1,51 +1,123 @@
 {% extends "base_templates/base_with_sidebar.html" %}
 
 {% block sidebar %}
-<div class="rsidebar span_1_of_left">
-  <div class="of-left">
-    <h3>User</h3>
-  </div>
-  <ul class="menu">
-    <li class="item"><a href="#">User Information</a>
-      <ul>
-        <li class="subitem1"><a href="{{ url_for('user_info_view') }}">Personal Information</a></li>
-        <li class="subitem1"><a href="{{ url_for('user_address_list_view') }}">Address List</a></li>
-        <li class="subitem1"><a href="{{ url_for('user_order_detail') }}">My Orders</a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
 
-{% if current_user.is_admin %}
-<div class="sellers">
-  <div class="of-left-in">
-    <h3>Admin</h3>
-  </div>
-  <ul class="menu">
-    <li class="item"><a href="#">Category</a>
-      <ul>
-        <li class="subitem1"><a href="{{ url_for('add_category_view') }}">Add Category</a></li>
-        <li class="subitem1"><a href="{{ url_for('category_list_view') }}">List Category</a></li>
-      </ul>
-    </li>
-  </ul>
-  <ul class="menu">
-    <li class="item"><a href="#">Products</a>
-      <ul>
-        <li class="subitem1"><a href="{{ url_for('add_product_view') }}">Add Product</a></li>
-        <li class="subitem1"><a href="{{ url_for('product_list_view') }}">List Product</a></li>
-      </ul>
-    </li>
-  </ul>
-  <ul class="menu">
-    <li class="item"><a href="#">Orders</a>
-      <ul>
-        <li class="subitem1"><a href="{{ url_for('view_order_list') }}">List Orders</a></li>
-      </ul>
-    </li>
-  </ul>
+<div class="panel-group custom-menu" id="accordion">
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <span class="glyphicon glyphicon-user"></span>User Information</a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-info-sign text-primary"></span>
+                            <a href="{{ url_for('user_info_view') }}">Personal Information</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-map-marker text-primary"></span>
+                            <a href="{{ url_for('user_address_list_view') }}">Address List</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-shopping-cart text-primary"></span>
+                            <a href="{{ url_for('user_order_detail') }}">My Orders</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
+    {% if current_user.is_admin %}
+    <br/><h3>Admin</h3><br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <span class="glyphicon glyphicon-th">
+                            </span>Category</a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('add_category_view') }}">
+                                <span class="glyphicon glyphicon-plus text-primary"></span>
+                                Add Category</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('category_list_view') }}">
+                                <span class="glyphicon glyphicon-th-list text-primary"></span>
+                                List Category</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span
+                        class="glyphicon glyphicon-shopping-cart">
+                            </span>Products</a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('add_product_view') }}">
+                                <span class="glyphicon glyphicon-plus text-primary"></span>
+                                Add Product</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('product_list_view') }}">
+                                <span class="glyphicon glyphicon-th-list text-primary"></span>
+                                List Product</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
+                        class="glyphicon glyphicon-gift">
+                            </span>Orders</a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('view_order_list') }}">
+                                <span class="glyphicon glyphicon-th-list text-primary"></span>
+                                List Orders</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endif %}
 {% endblock %}

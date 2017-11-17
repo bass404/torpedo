@@ -84,8 +84,17 @@
 }
 
 .custom-panel{
-  padding: 25px 0px 20px 10px;
+  padding: 20px 0px 20px 10px;
 }
 .custom-width-col{
   width:150px;
 }
+
+body{margin-top:50px;}
+.glyphicon { margin-right:10px; }
+.panel-body { padding:0px; }
+.panel-body table tr td { padding-left: 15px }
+.panel-body .table {margin-bottom: 0px; }
+.custom-menu{margin-top:20px;}
+a:hover{text-decoration: none; font-weight:bold;}
+a:link {text-decoration: none;}
