@@ -12,7 +12,10 @@ def user_setting_view():
     Return the page for accessing user settings
     """
 
-    return render_template("users/settings/base.html")
+    if current_user.is_admin:
+        return redirect(url_for('view_order_list'))
+    else:
+        return redirect(url_for('user_order_detail'))
 
 
 @torpedo_app.route("/user/info", methods=["GET", "POST"])
