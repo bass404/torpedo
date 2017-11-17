@@ -35,7 +35,8 @@ def order_status_change(order_id,status):
 @torpedo_app.route("/order/list/<order_id>", methods=["GET"])
 def order_detail(order_id):
     #TODO: have to do pagination from query
-    orders = Order.objects(id=order_id).first()
-    return render_template("orders/admin/detail.html", heading="Order detail",orders = orders)
+    order = Order.objects(id=order_id).first()
+    price_details = order.get_details()
+    return render_template("orders/admin/detail.html", heading="Order detail",order = order, price_details=price_details)
 
 
