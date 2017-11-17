@@ -63,10 +63,12 @@ $(window).load(function() {
       </div>
     </div>
 
-    <ul class="tag-men">
-      <li><span>TAG</span> <span class="women1">: Women,</span></li>
-      <li><span>SKU</span> <span class="women1">: CK09</span></li>
-    </ul>
+    <div class="tag-men">
+      <div class="row">
+        <div class="col-md-6">Category</div>
+        <div class="col-md-6">{{ product.category.name }}</div>
+      </div>
+    </div>
     <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}" class="add-cart item_add">ADD TO CART</a>
   </div>
 </div>

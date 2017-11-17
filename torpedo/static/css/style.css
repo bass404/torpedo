@@ -1134,20 +1134,10 @@ ul.star-footer li i{
 .available {
     padding:  1em 0;
 }
-ul.tag-men {
+.tag-men {
     padding:0.3em 0;
     border-top: 1px solid #C4C3C3;
     border-bottom: 1px solid #C4C3C3;
-}
-ul.tag-men li{
-    list-style:none;
-    color:#000;
-    font-family: 'Lato', serif;
-    margin: 0.3em 0;
-    font-size:0.9em;
-}
-ul.tag-men li span.women1{
-    margin-left: 9em;
 }
 a.add-cart {
     text-decoration: none;
