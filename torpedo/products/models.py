@@ -96,3 +96,18 @@ class Product(Document):
         # Obtain attribute
         attribute = self.attributes.filter(id=attribute_id).first()
         return attribute.price
+
+    def get_product_attribute_property(self, attribute_id, attribute_key):
+        """
+        Generalized function to obtain the property from attribute
+        """
+
+        # Obtain attribute
+        attribute = self.attributes.filter(id=attribute_id).first()
+
+        try:
+            attribute_value = attribute.__getitem__(attribute_key)
+        except KeyError:
+            return None
+
+        return attribute_value

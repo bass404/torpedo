@@ -35,35 +35,15 @@ $(window).load(function() {
 
     <div class="star-on">
       <ul class="star-footer">
-        <li>
-          <a href="#"></a>
-        </li>
-
-
-        <li>
-          <a href="#"></a>
-        </li>
-
-
-        <li>
-          <a href="#"></a>
-        </li>
-
-
-        <li>
-          <a href="#"></a>
-        </li>
-
-
-        <li>
-          <a href="#"></a>
-        </li>
+        <li><a href="#"></a> </li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
       </ul>
-
-
-      <div class="clearfix">
-      </div>
+      <div class="clearfix"></div>
     </div>
+
     <h5 class="item_price">$ {{product.get_price}}</h5>
     <p>{{product.description}}</p>
     <div class="available">
@@ -104,7 +84,7 @@ $(window).load(function() {
       </li>
 
       <li>
-        <a data-content="cinema" href="#0">Addtional Informatioan</a>
+        <a data-content="cinema" href="#0">Addtional Information</a>
       </li>
 
       <li>
@@ -117,25 +97,13 @@ $(window).load(function() {
   <ul class="cd-tabs-content">
     <li data-content="fashion">
       <div class="facts">
-        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined</p>
-
-
+        <p>{{ product.get_Description }}</p>
         <ul>
           <li>Research</li>
-
-
           <li>Design and Development</li>
-
-
           <li>Porting and Optimization</li>
-
-
           <li>System integration</li>
-
-
           <li>Verification, Validation and Testing</li>
-
-
           <li>Maintenance and Support</li>
         </ul>
       </div>
@@ -146,19 +114,13 @@ $(window).load(function() {
       <div class="facts1">
         <div class="color">
           <p>Color</p>
-          <span>Blue, Black, Red</span>
-
-          <div class="clearfix">
-          </div>
+          <span>{{ product.get_product_attribute_property(attribute.id, 'color') }}</span>
+          <div class="clearfix"></div>
         </div>
-
-
         <div class="color">
           <p>Size</p>
-          <span>S, M, L, XL</span>
-
-          <div class="clearfix">
-          </div>
+          <span>{{ product.get_product_attribute_property(attribute.id, 'size') }}</span>
+          <div class="clearfix"></div>
         </div>
       </div>
     </li>
