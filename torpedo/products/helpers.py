@@ -20,6 +20,8 @@ def get_products(number_of_products_to_return):
             # Randomly insert items into list to make it longer
             fake_products.append(
                     products[random.randint(0, number_of_products - 1)])
+    else:
+        return products[:number_of_products_to_return]
 
     return fake_products
 
