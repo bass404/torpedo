@@ -82,3 +82,10 @@
   margin-bottom: 2em;
   border:none;
 }
+
+.custom-panel{
+  padding: 25px 0px 20px 10px;
+}
+.custom-width-col{
+  width:150px;
+}
