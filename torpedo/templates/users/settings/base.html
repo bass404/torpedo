@@ -35,7 +35,8 @@
     </div>
 
     {% if current_user.is_admin %}
-    <br/><h3>Admin</h3><br/>
+    <br/>
+    <h3>Admin</h3><br/>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -118,8 +119,8 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
-{% endif %}
 {% endblock %}
 
 {% block content %}
