@@ -2,44 +2,23 @@
 
 {% block container %}
 <div class=" container">
-  <div class=" register">
-    <h1>Register</h1>
-    {% include "form_messages.html" %}
-    <form action="{{ url_for('signup') }}" method="POST">
-      {{ form.hidden_tag() }}
-      <div class="col-md-6 register-top-grid">
-        <h3>Personal infomation</h3>
-        <div>
-          <span>First Name</span>
-          <input type="text" name="first_name" required>
+        <div class="row account-top" style="padding:20px;">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-6" style="border-radius:7px; padding: 20px; background: #eee; border: #ccc 1px solid;">
+                <h3 class="login-title">Create a new Account</h3>
+                {% include "form_messages.html" %}
+                <form action="{{ url_for('signup') }}" method="POST">
+                    <span>{{ form.hidden_tag() }}</span>
+                    <input type="text" class="login-form-radius" name="first_name" required placeholder="First Name">
+                    <input type="text" class="login-form-radius" name="last_name" required placeholder="Last Name">
+                    <input type="email" class="login-form-radius" name="email" required placeholder="Email">
+                    <input type="password" class="login-form-radius" name="password" required placeholder="Password">
+                    <input type="password" class="login-form-radius" name="confirm_password" required placeholder="Re-password">
+                    <input type="submit" class="login-form-radius" value="Signup" style="border-radius:7px; width:100%; height:50px; margin-bottom:10px;">
+                </form>
+            </div>
+            <div class="col-md-3">&nbsp;</div>
         </div>
-        <div>
-          <span>Last Name</span>
-          <input type="text" name="last_name" required>
-        </div>
-        <div>
-          <span>Email Address</span>
-          <input type="email" name="email" required>
-        </div>
-        <!-- <a class="news-letter" href="#"> -->
-          <!--   <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label> -->
-          <!-- </a> -->
-      </div>
-      <div class="col-md-6 register-bottom-grid">
-        <h3>Login information</h3>
-        <div>
-          <span>Password</span>
-          <input type="password" name="password" required>
-        </div>
-        <div>
-          <span>Confirm Password</span>
-          <input type="password" name="confirm_password" required>
-        </div>
-        <input type="submit" value="submit">
+    </div>
 
-      </div>
-      <div class="clearfix"> </div>
-    </form>
-  </div>
-</div>
 {% endblock %}
