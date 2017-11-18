@@ -90,7 +90,6 @@
   width:150px;
 }
 
-body{margin-top:50px;}
 .glyphicon { margin-right:10px; }
 .panel-body { padding:0px; }
 .panel-body table tr td { padding-left: 15px }
@@ -98,3 +97,13 @@ body{margin-top:50px;}
 .custom-menu{margin-top:20px;}
 a:hover{text-decoration: none; font-weight:bold;}
 a:link {text-decoration: none;}
+.custom-header{
+  margin: 10px;
+  font-size: 18pt;
+}
+.custom-table{
+  border: 1px #ddd solid;
+}
+.custom-table-thead{
+  background: #f5f5f5;
+}
