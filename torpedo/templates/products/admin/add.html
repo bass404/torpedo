@@ -1,39 +1,31 @@
 {% extends "users/settings/base.html" %}
 
 {% block content %}
-<div class="container">
-    <div class="col-sm-9">
+<div class="row">
+    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-6">
         <div class="row">
             <div class="col-md-12" align="center">
-                <h3 class="custom-header">{{ heading }}</h3>
+                <h3 class="custom-header font-normal">{{ heading }}</h3>
             </div>
         </div>
         {% include "form_messages.html" %}
         <form class="form-horizontal" action="{{url_for('add_product_view')}}" method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="Name">Name:</label>
-                <div class="col-sm-10">
-                    {{ form.name(class="form-control input-lg")}}
-                </div>
+            <div class="login-form-radius">{{ form.hidden_tag() }}</div>
+            <div class="login-form-radius">
+                {{ form.name(class="form-control input-lg", placeholder="Name", required=required)}}
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="Description">Description:</label>
-                <div class="col-sm-10">
-                    {{ form.description(class="form-control input-lg")}}
-                </div>
+            <div class="login-form-radius">
+                {{ form.description(class="form-control input-lg", placeholder="Description", required=required)}}
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="Category">Category:</label>
-                <div class="col-sm-10">
-                    {{ form.category(class="form-control input-lg")}}
-                </div>
+
+            <div class="login-form-radius">{{ form.category(class="form-control input-lg")}}
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
+            <div class="login-form-radius">
+                <button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button>
             </div>
+        </form>
     </div>
+    <div class="col-md-3">&nbsp;</div>
 </div>
 {% endblock %}

@@ -2,14 +2,15 @@
 
 {% block container %}
 <div class="container">
-    <div class="account">
-        <div class="col-sm-9">
-            <div class="row" align="center">
-                <span class="col-sm-3">&nbsp;</span>
-                <span class="col-sm-6">
-                    <h3 class="custom-access">{{ heading }}</h3><br/>
-                </span>
-                <span class="col-sm-3">&nbsp;</span>
+
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-9" align="center">
+                    <h3 class="custom-header font-normal">{{ heading }}</h3>
+                </div>
             </div>
             {% include "form_messages.html" %}
             {% if form.address_id.data %}
@@ -17,64 +18,69 @@
                   action="{{url_for('modify_shipping_address_view', address_id=form.address_id.data)}}"
                   method="POST">
                 {% else %}
-                <form class="form-horizontal" action="{{url_for('user_order_shipping_view',add_new='n')}}" method="POST">
+                <form class="form-horizontal" action="{{url_for('user_order_shipping_view',add_new='n')}}"
+                      method="POST">
                     {% endif %}
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                        <div class="col-sm-10">
+                        <div class="col-sm-9">
                             {{ form.address_id(class="form-control input-lg")}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="address">Address:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="address">Address:</label>
+                        <div class="col-sm-9">
                             {{ form.address(class="form-control input-lg",required=required)}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Address 1:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="">Address 1:</label>
+                        <div class="col-sm-9">
                             {{ form.address_1(class="form-control input-lg")}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Address 2:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="">Address 2:</label>
+                        <div class="col-sm-9">
                             {{ form.address_2(class="form-control input-lg")}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">City:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="">City:</label>
+                        <div class="col-sm-9">
                             {{ form.city(class="form-control input-lg",required=required)}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">State/Province:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="">State/Province:</label>
+                        <div class="col-sm-9">
                             {{ form.state(class="form-control input-lg",required=required)}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Zipcode/Postalcode:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form"
+                               for="">Zip-code:</label>
+                        <div class="col-sm-9">
                             {{ form.zipcode(class="form-control input-lg",required=required)}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Country:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3 custom-font-form" for="">Country:</label>
+                        <div class="col-sm-9">
                             {{ form.country(class="form-control input-lg",required=required)}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Submit</button>
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button>
                         </div>
                     </div>
                 </form>
             </form>
         </div>
+        <div class="col-md-2">&nbsp;</div>
     </div>
 </div>
+
 {% endblock %}
