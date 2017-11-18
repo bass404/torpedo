@@ -107,3 +107,13 @@ a:link {text-decoration: none;}
 .custom-table-thead{
   background: #f5f5f5;
 }
+.login-title{
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 15pt;
+}
+.login-form-radius{
+  border-radius:7px;
+  margin-top:10px;
+}
+

@@ -2,36 +2,35 @@
 
 {% block container %}
 <div class="container">
-  <div class="account">
-    <h1>Account</h1>
-    <div class="account-pass">
-      <div class="col-md-8 account-top">
-        {% include "form_messages.html" %}
-        <form action="{{ url_for('login') }}" method="POST">
-          {{ form.hidden_tag() }}
-          <div>
-            <span>Email</span>
-            <input type="email" name="email" required>
-          </div>
-          <div>
-            <span >Password</span>
-            <input type="password" name="password" required>
-          </div>
-          <input type="submit" value="Submit">
-        </form>
-      </div>
-      <div class="col-md-4 left-account ">
-        <a href="single.html">
-          <img class="img-responsive " src="{{ url_for('static', filename='images/s1.jpg') }}" alt=""></a>
-        <div class="five">
-          <h2>25% </h2><span>discount</span>
+    <div class="account">
+        <div class="account-pass">
+            <div class="col-md-8 account-top">
+                <div class="col-md-6" style="border-radius:7px; padding: 20px; background: #eee; border: #ccc 1px solid;">
+                    <h3 class="login-title">Login to Your Account</h3>
+                    {% include "form_messages.html" %}
+                    <form action="{{ url_for('login') }}" method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <input type="email" class="login-form-radius" name="email" required placeholder="Email">
+                        <input type="password" class="login-form-radius" name="password" required
+                               placeholder="Password">
+
+                        <input type="submit" style="border-radius:7px; width:100%; height:50px" value="Login">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 left-account ">
+                <a href="single.html">
+                    <img class="img-responsive " src="{{ url_for('static', filename='images/s1.jpg') }}" alt=""></a>
+                <div class="five">
+                    <h2>25% </h2><span>discount</span>
+                </div>
+                <a href="register.html" class="create">Create an account</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <a href="register.html" class="create">Create an account</a>
-        <div class="clearfix"> </div>
-      </div>
-      <div class="clearfix"> </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}
