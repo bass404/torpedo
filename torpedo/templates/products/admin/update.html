@@ -1,76 +1,95 @@
 {% extends "users/settings/base.html" %}
 
 {% block content %}
-<div class="container">
-  <div class="col-sm-9">
-    <h1>Product Detail</h1>
-    {% include "form_messages.html" %}
-      <form class="form-horizontal" action="{{url_for('product_update_view', product_id=product.id)}}" method="POST">
-      {{ form.hidden_tag() }}
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="Name">Name:</label>
-        <div class="col-sm-10">
-          {{ form.name(class="form-control input-lg")}}
+<div class="row">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-9" align="center">
+                <h3 class="custom-header font-normal">Product Detail</h3>
+            </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="Description">Description:</label>
-        <div class="col-sm-10">
-          {{ form.description(class="form-control input-lg")}}
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="Category">Category:</label>
-        <div class="col-sm-10">
-          <select class="form-control input-lg" name="category">
-            {% for category_value, category_label in form.category.choices %}
-            <option value="{{category_value}}" {% if category_value == product.category.id.__str__() %}selected{% endif %}>{{category_label}}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-      </div>
-  </div>
-</div>
-<div class="container">
-  <div class="col-sm-9">
-    <h1>List of Attributes</h1>
-    <div class="pull-right" style="margin-bottom:1em;">
-      <a href="{{ url_for('product_attributes_add_view', product_id=product.id) }}" class="btn btn-lg btn-primary">Add Attribute</a>
+        {% include "form_messages.html" %}
+        <form class="form-horizontal" action="{{url_for('product_update_view', product_id=product.id)}}" method="POST">
+            <div class="login-form-radius">{{ form.hidden_tag() }}</div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">Name:</label>
+                <div class="col-md-9">
+                    {{ form.name(class="form-control input-lg")}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">Description:</label>
+                <div class="col-md-9">
+                    {{ form.description(class="form-control input-lg")}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">Category:</label>
+                <div class="col-md-9">
+                    <select class="form-control input-lg" name="category">
+                        {% for category_value, category_label in form.category.choices %}
+                        <option value="{{category_value}}" {% if category_value== product.category.id.__str__()
+                                %}selected{% endif %}>{{category_label}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">&nbsp;</label>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <table class="table table-hover table-responsive" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Size</th>
-          <th>Color</th>
-          <th>Price</th>
-          <th>Discount</th>
-          <th>Stock</th>
-          <th>Picture</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for product_attribute in product.attributes %}
-        <tr>
-          <td>{{ product_attribute.id }}</td>
-          <td>{{ product_attribute.size }}</td>
-          <td>{{ product_attribute.color }}</td>
-          <td>{{ product_attribute.price }}</td>
-          <td>{{ product_attribute.discount }}</td>
-          <td>{{ product_attribute.stock }}</td>
-          <!-- TODO Fix this -->
-          <td><img src="{{ product_attribute.get_image_url }}" style="width:50px;height:50px;"></td>
-          <td><a href="{{ url_for('product_attribute_update_view', product_id=product.id, attribute_id=product_attribute.id) }}">Remove</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-md-9" align="left">
+        <h3 class="custom-header font-normal">List of Attributes</h3>
+    </div>
+    <div class="col-md-3">
+        <div class="pull-right" style="">
+            <a href="{{ url_for('product_attributes_add_view', product_id=product.id) }}"
+               class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Add Attribute</a>
+        </div>
+    </div>
+</div>
+<table class="table table-hover table-responsive custom-table">
+    <thead class="custom-table-thead">
+    <tr>
+        <th>ID</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Stock</th>
+        <th>Picture</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product_attribute in product.attributes %}
+    <tr>
+        <td>{{ product_attribute.id }}</td>
+        <td>{{ product_attribute.size }}</td>
+        <td>{{ product_attribute.color }}</td>
+        <td>{{ product_attribute.price }}</td>
+        <td>{{ product_attribute.discount }}</td>
+        <td>{{ product_attribute.stock }}</td>
+        <!-- TODO Fix this -->
+        <td><img src="{{ product_attribute.get_image_url }}" style="width:50px;height:50px;"></td>
+        <td>
+            <a href="{{ url_for('product_attribute_update_view', product_id=product.id, attribute_id=product_attribute.id) }}">Remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
 </div>
 {% endblock %}

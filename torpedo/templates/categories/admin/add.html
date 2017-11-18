@@ -2,21 +2,38 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-3">&nbsp;</div>
-    <div class="col-md-6">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
         <div class="row">
-            <div class="col-md-12" align="center">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-9" align="center">
                 <h3 class="custom-header font-normal">{{ heading }}</h3>
             </div>
         </div>
         {% include "form_messages.html" %}
         <form class="form-horizontal" action="{{url_for('add_category_view')}}" method="POST">
             <div class="login-form-radius">{{ form.hidden_tag() }}</div>
-            <div class="login-form-radius">{{ form.name(class="form-control input-lg", placeholder="Name", required=required)}}</div>
-            <div class="login-form-radius">{{ form.description(class="form-control input-lg", placeholder="Description", required=required)}}</div>
-            <div class="login-form-radius"><button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">Name:</label>
+                <div class="col-md-9">{{ form.name(class="form-control input-lg",
+                    required=required)}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">Description:</label>
+                <div class="col-md-9">{{ form.description(class="form-control input-lg",
+                    required=required)}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 custom-font-form">&nbsp;</label>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div>
 </div>
 {% endblock %}
