@@ -13,6 +13,9 @@ def get_products(number_of_products_to_return):
     products = Product.objects()
     number_of_products = len(products)
 
+    if not number_of_products:
+        return []
+
     # FAKE IT TILL YOU MAKE IT
     fake_products = []
     if number_of_products < number_of_products_to_return:
