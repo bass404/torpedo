@@ -194,18 +194,21 @@ def add_product_to_order(address_id):
     # Create the Order object
     order = Order(user=current_user.id, status='PENDING', address=orderaddress_obj)
     for each_product_attrb in cart.product_details:
-        order_detail = OrderDetail(id=each_product_attrb.id,
-                                   product_and_attribute=each_product_attrb.product_and_attribute,
-                                   price=each_product_attrb.price,
-                                   discount=each_product_attrb.discount,
-                                   quantity=each_product_attrb.quantity)
 
         #TODO: FIND efficient way than this
         product = Product.objects(id = each_product_attrb.product_and_attribute.product.id).first()
         for attribute in product.attributes:
             if attribute.id == each_product_attrb.product_and_attribute.product_attribute:
+                if attribute.stock <=0:
+                    return #TODO: Add a viewing message
                 attribute.stock = attribute.stock - 1
         product.save()
+
+        order_detail = OrderDetail(id=each_product_attrb.id,
+                                   product_and_attribute=each_product_attrb.product_and_attribute,
+                                   price=each_product_attrb.price,
+                                   discount=each_product_attrb.discount,
+                                   quantity=each_product_attrb.quantity)
 
         order.product_details.append(order_detail)
 
