@@ -126,3 +126,27 @@ a:link {text-decoration: none;}
   font-weight:normal;
   font-size:Large;
 }
+.custom-contact-font{
+  color:#EF5F21;
+}
+.custom-contact-bg{
+  background:#EF5F21;
+  height:50px;
+  border-radius:4px;
+}
+.custom-contact-border{
+  border-right:1px #ddd solid;
+  border-left:1px #ddd solid;
+  min-height:90px;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+.custom-contact-img{
+  margin:20px;
+}
+.custom-contact-header{
+  padding:20px 0px 20px 0px;
+  border-bottom:1px #ddd solid;
+  width: 400px;
+}
+
