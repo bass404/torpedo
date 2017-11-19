@@ -2,54 +2,54 @@
 
 {% block content %}
 <div class="col-md-5 single-top">
-    <div class="product-at custom-product-detail-img">
-        <img class="img-responsive img-custom" src="{{ product_image_url }}" alt="">
-    </div>
+  <div class="product-at custom-product-detail-img">
+    <img class="img-responsive img-custom" src="{{ product_image_url }}" alt="">
+  </div>
 </div>
 
 <div class="col-md-7 single-top-in simpleCart_shelfItem">
-    <div class="single-para" style="min-height:420px;">
-        <h3 class="custom-header font-normal custom-product-detail-title">{{product.name}}</h3>
-        <hr/>
-        <div class="row">
-            <div class="col-md-3">
-                <h3 class="item_price">$ {{product.get_price}}</h3>
-            </div>
-            <div class="col-md-9">
-                &nbsp;
-            </div>
-        </div>
-        <hr/>
-        <span><strong>Description </strong></span>
-        <p>{{product.description}}</p>
-        <div class="available">
-            <div class="row">
-                <div class="col-md-3">
-                    <span><strong>Choices</strong></span>
-                </div>
-                <div class="col-md-9">
-                    {% for product_attribute in product.attributes %}
-                    {% if product_attribute.id != attribute.id %}
-                    <a class="btn btn-default"
-                       href="{{ url_for('product_detail_view', product_id=product.id, attribute_id=product_attribute.id) }}">{{
-                        product_attribute.generate_display_name }}</a>
-                    {% else %}
-                    <a class="custom-product-detail-btn1">{{ product_attribute.generate_display_name }}</a>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <hr/>
-        <div class="row">
-            <div class="col-md-3"><strong>Category</strong></div>
-            <div class="col-md-9">{{ product.category.name }}</div>
-        </div>
-        <hr/>
-        <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}"
-                   class="col-md-9 btn btn-primary">ADD TO CART</a>
+  <div class="single-para" style="min-height:420px;">
+    <h3 class="custom-header font-normal custom-product-detail-title">{{product.name}}</h3>
+    <hr/>
+    <div class="row">
+      <div class="col-md-3">
+        <h3 class="item_price">$ {{product.get_price}}</h3>
+      </div>
+      <div class="col-md-9">
+        &nbsp;
+      </div>
     </div>
+    <hr/>
+    <span><strong>Description </strong></span>
+    <p>{{product.description}}</p>
+    <div class="available">
+      <div class="row">
+        <div class="col-md-3">
+          <span><strong>Choices</strong></span>
+        </div>
+        <div class="col-md-9">
+          {% for product_attribute in product.attributes %}
+          {% if product_attribute.id != attribute.id %}
+          <a class="btn btn-default"
+            href="{{ url_for('product_detail_view', product_id=product.id, attribute_id=product_attribute.id) }}">{{
+            product_attribute.generate_display_name }}</a>
+          {% else %}
+          <a class="custom-product-detail-btn1">{{ product_attribute.generate_display_name }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+    <div class="row">
+      <div class="col-md-3"><strong>Category</strong></div>
+      <div class="col-md-9">{{ product.category.name }}</div>
+    </div>
+    <hr/>
+    <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}"
+      class="col-md-9 btn btn-primary">ADD TO CART</a>
+  </div>
 </div>
 
 
@@ -58,53 +58,53 @@
 <!---->
 
 <div class="cd-tabs">
-    <nav>
-        <ul class="cd-tabs-navigation">
-            <li>
-                <a data-content="fashion" href="#0">Description</a>
-            </li>
+  <nav>
+    <ul class="cd-tabs-navigation">
+      <li>
+        <a data-content="fashion" href="#0">Description</a>
+      </li>
 
-            <li>
-                <a data-content="cinema" href="#0">Addtional Information</a>
-            </li>
+      <li>
+        <a data-content="cinema" href="#0">Addtional Information</a>
+      </li>
 
-            <li>
-                <a data-content="television" href="#0" class="selected">Reviews (1)</a>
-            </li>
+      <li>
+        <a data-content="television" href="#0" class="selected">Reviews (1)</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <ul class="cd-tabs-content">
+    <li data-content="fashion">
+      <div class="facts">
+        <p>{{ product.get_Description }}</p>
+        <ul>
+          <li>Research</li>
+          <li>Design and Development</li>
+          <li>Porting and Optimization</li>
+          <li>System integration</li>
+          <li>Verification, Validation and Testing</li>
+          <li>Maintenance and Support</li>
         </ul>
-    </nav>
+      </div>
+    </li>
 
 
-    <ul class="cd-tabs-content">
-        <li data-content="fashion">
-            <div class="facts">
-                <p>{{ product.get_Description }}</p>
-                <ul>
-                    <li>Research</li>
-                    <li>Design and Development</li>
-                    <li>Porting and Optimization</li>
-                    <li>System integration</li>
-                    <li>Verification, Validation and Testing</li>
-                    <li>Maintenance and Support</li>
-                </ul>
-            </div>
-        </li>
-
-
-        <li data-content="cinema">
-            <div class="facts1">
-                <div class="color">
-                    <p>Color</p>
-                    <span>{{ product.get_product_attribute_property(attribute.id, 'color') }}</span>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="color">
-                    <p>Size</p>
-                    <span>{{ product.get_product_attribute_property(attribute.id, 'size') }}</span>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </li>
+    <li data-content="cinema">
+      <div class="facts1">
+        <div class="color">
+          <p>Color</p>
+          <span>{{ product.get_product_attribute_property(attribute.id, 'color') }}</span>
+          <div class="clearfix"></div>
+        </div>
+        <div class="color">
+          <p>Size</p>
+          <span>{{ product.get_product_attribute_property(attribute.id, 'size') }}</span>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </li>
 
     <h4> Comments and Reviews </h4>
 
@@ -131,39 +131,38 @@
 
         <div class="clearfix">
         </div>
-        <a class="add-re" href="#">ADD REVIEW</a>
         {% include "form_messages.html" %}
         <form class="form-horizontal" action="{{url_for('add_product_comments',product_id=product.id,attribute_id=attribute.id)}}" method="POST">
-            <div class="login-form-radius">{{ form.hidden_tag() }}</div>
-            <div class="login-form-radius">{{ form.comment(class="form-control input-lg", placeholder="Comment", required=required)}}</div>
-            <div class="login-form-radius"><button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button></div>
+          <div class="login-form-radius">{{ form.hidden_tag() }}</div>
+          <div class="login-form-radius">{{ form.comment(class="form-control input-lg", placeholder="Comment", required=required)}}</div>
+          <div class="login-form-radius"><button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button></div>
         </form>
       </div>
     </li>
-        <div class="clearfix">
-        </div>
-    </ul>
+    <div class="clearfix">
+    </div>
+  </ul>
 </div>
 
 <div class="bottom-product">
-    {% for product in similar_products %}
-    <div class="col-md-4 bottom-cd simpleCart_shelfItem">
-        <div class="product-at product-list">
-            <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
-                <img class="img-responsive img-custom" src="{{ product.get_image_url }}" alt="">
-                <div class="pro-grid">
-                    <span class="buy-in">Buy Now</span>
-                </div>
-            </a>
+  {% for product in similar_products %}
+  <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+    <div class="product-at product-list">
+      <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
+        <img class="img-responsive img-custom" src="{{ product.get_image_url }}" alt="">
+        <div class="pro-grid">
+          <span class="buy-in">Buy Now</span>
         </div>
-
-        <p class="tun">{{ product.get_Description }}</p>
-        <a href="{{ url_for('product_detail_view', product_id=product.id) }}" class="item_add">
-            <p class="number item_price">{{ product.get_price }}</p></a>
+      </a>
     </div>
-    {% endfor %}
 
-    <div class="clearfix">
-    </div>
+    <p class="tun">{{ product.get_Description }}</p>
+    <a href="{{ url_for('product_detail_view', product_id=product.id) }}" class="item_add">
+      <p class="number item_price">{{ product.get_price }}</p></a>
+  </div>
+  {% endfor %}
+
+  <div class="clearfix">
+  </div>
 </div>
 {% endblock %}
