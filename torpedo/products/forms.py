@@ -12,6 +12,8 @@ class CategoryForm(Form):
     name = StringField("name", validators=[DataRequired()])
     description = TextField()
 
+class CommentForm(Form):
+    comment = StringField(validators=[DataRequired()])
 
 class ProductForm(Form):
     name = StringField("name", validators=[DataRequired()])
