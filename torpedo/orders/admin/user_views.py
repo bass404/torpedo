@@ -199,12 +199,21 @@ def add_product_to_order(address_id):
                                    price=each_product_attrb.price,
                                    discount=each_product_attrb.discount,
                                    quantity=each_product_attrb.quantity)
+
+        #TODO: FIND efficient way than this
+        product = Product.objects(id = each_product_attrb.product_and_attribute.product.id).first()
+        for attribute in product.attributes:
+            if attribute.id == each_product_attrb.product_and_attribute.product_attribute:
+                attribute.stock = attribute.stock - 1
+        product.save()
+
         order.product_details.append(order_detail)
 
     # Save the card object
     # TODO: Check for transaction control
     order.save()
     cart.delete()
+
     # TODO: This can be redirected to a page with a thank you note
     shipping_address = UserAddress.objects(id=address_id)[0]
     return render_template("orders/order_summary.html", products=order.product_details,

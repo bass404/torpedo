@@ -106,32 +106,40 @@
             </div>
         </li>
 
-        <li data-content="television" class="selected">
-            <div class="comments-top-top">
-                <div class="top-comment-left"><img class="img-responsive"
-                                                   src="{{ url_for('static', filename='images/co.png') }}" alt="">
-                </div>
+    <h4> Comments and Reviews </h4>
 
-                <div class="top-comment-right">
-                    <h6><a href="#">Hendri</a> - September 3, 2014</h6>
+    <li data-content="television" class="selected">
+      {% for comment in product.comments%}
+      <div class="comments-top-top">
+        <div class="top-comment-left"><img class="img-responsive" src="{{ url_for('static', filename='images/co.png') }}" alt="">
+        </div>
 
-                    <ul class="star-footer">
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                    </ul>
+        <div class="top-comment-right">
+          <h6><a href="#">{{comment.user.first_name}} {{comment.user.last_name}}</a> - {{comment.get_comment_date}}</h6>
 
-                    <p>Wow nice!</p>
-                </div>
+          <ul class="star-footer">
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+            <li> <a href="#"></a> </li>
+          </ul>
 
-                <div class="clearfix">
-                </div>
-                <a class="add-re" href="#">ADD REVIEW</a>
-            </div>
-        </li>
+          <p>{{comment.comment}}</p>
+        </div>
+        {% endfor %}
 
+        <div class="clearfix">
+        </div>
+        <a class="add-re" href="#">ADD REVIEW</a>
+        {% include "form_messages.html" %}
+        <form class="form-horizontal" action="{{url_for('add_product_comments',product_id=product.id,attribute_id=attribute.id)}}" method="POST">
+            <div class="login-form-radius">{{ form.hidden_tag() }}</div>
+            <div class="login-form-radius">{{ form.comment(class="form-control input-lg", placeholder="Comment", required=required)}}</div>
+            <div class="login-form-radius"><button type="submit" class="btn btn-primary btn-lg form-full-width">Submit</button></div>
+        </form>
+      </div>
+    </li>
         <div class="clearfix">
         </div>
     </ul>

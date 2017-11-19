@@ -1,8 +1,8 @@
 from mongoengine import (
     Document, EmbeddedDocument, StringField, ReferenceField, CASCADE,
-    FloatField, IntField, EmbeddedDocumentListField, SequenceField
+    FloatField, IntField, EmbeddedDocumentListField, SequenceField,DateTimeField
 )
-
+from datetime import datetime
 import cloudinary
 
 
@@ -10,6 +10,18 @@ class Category(Document):
     name = StringField()
     description = StringField()
 
+class Comments(EmbeddedDocument):
+    user = ReferenceField("users.User")
+    comment = StringField()
+    created_on = DateTimeField(default=datetime.now)
+    updated_on = DateTimeField(default=datetime.now)
+
+    #https: // stackoverflow.com / questions / 43553222 / transform - datetime - in -yyyy - mm - dd - hhmmss - ssssss
+    #Format check : https://jeffkayser.com/projects/date-format-string-composer/index.html
+    @property
+    def get_comment_date(self):
+        dtObject = datetime.strptime(str(self.created_on),"%Y-%m-%d %H:%M:%S.%f")
+        return dtObject.strftime("%B %e, %Y")
 
 class ProductAttribute(EmbeddedDocument):
     """
@@ -40,7 +52,7 @@ class Product(Document):
     name = StringField()
     description = StringField()
     category = ReferenceField("products.Category", reverse_delete_rule=CASCADE)
-
+    comments = EmbeddedDocumentListField(Comments)
     attributes = EmbeddedDocumentListField(ProductAttribute)
 
     @property
