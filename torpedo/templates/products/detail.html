@@ -89,9 +89,6 @@ $(window).load(function() {
         <a data-content="cinema" href="#0">Addtional Information</a>
       </li>
 
-      <li>
-        <a data-content="television" href="#0" class="selected">Reviews (1)</a>
-      </li>
     </ul>
   </nav>
 
@@ -126,6 +123,9 @@ $(window).load(function() {
         </div>
       </div>
     </li>
+
+    <br/>
+    <h4> Comments and Reviews </h4>
 
     <li data-content="television" class="selected">
       {% for comment in product.comments%}
