@@ -149,4 +149,18 @@ a:link {text-decoration: none;}
   border-bottom:1px #ddd solid;
   width: 400px;
 }
-
+.custom-product-detail-img{
+  width: auto;
+  height: 420px;
+  overflow: hidden;
+  margin-top: 10px
+}
+.custom-product-detail-title{
+  color: #ff5705;
+}
+.custom-product-detail-btn, .custom-product-detail-btn:hover{
+  background-color: #ff5705;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
