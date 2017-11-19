@@ -16,8 +16,7 @@
                 <h3 class="item_price">$ {{product.get_price}}</h3>
             </div>
             <div class="col-md-9">
-                <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}"
-                   class="custom-product-detail-btn">ADD TO CART</a>
+                &nbsp;
             </div>
         </div>
         <hr/>
@@ -35,7 +34,7 @@
                        href="{{ url_for('product_detail_view', product_id=product.id, attribute_id=product_attribute.id) }}">{{
                         product_attribute.generate_display_name }}</a>
                     {% else %}
-                    <a class="custom-product-detail-btn">{{ product_attribute.generate_display_name }}</a>
+                    <a class="custom-product-detail-btn1">{{ product_attribute.generate_display_name }}</a>
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -48,6 +47,8 @@
             <div class="col-md-9">{{ product.category.name }}</div>
         </div>
         <hr/>
+        <a href="{{ url_for('add_product_to_cart', product_id=product.id, attribute_id=attribute.id) }}"
+                   class="col-md-9 btn btn-primary">ADD TO CART</a>
     </div>
 </div>
 

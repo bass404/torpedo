@@ -156,11 +156,17 @@ a:link {text-decoration: none;}
   margin-top: 10px
 }
 .custom-product-detail-title{
-  color: #ff5705;
+  color: #000;
 }
 .custom-product-detail-btn, .custom-product-detail-btn:hover{
   background-color: #ff5705;
   color: #fff;
   padding: 8px;
+  border-radius: 4px;
+}
+.custom-product-detail-btn1, .custom-product-detail-btn1:hover{
+  border: #ff5705 1px solid;
+  padding: 8px;
+  color:#000;
   border-radius: 4px;
 }
