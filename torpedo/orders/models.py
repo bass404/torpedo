@@ -18,7 +18,7 @@ class ProductAndAttribute(EmbeddedDocument):
     product_attribute = IntField()
 
 
-class BaseOrderDetail(EmbeddedDocument):
+class ProductDetailMixin():
     """
     No collection will be created for this model
     """
@@ -53,14 +53,14 @@ class BaseOrderDetail(EmbeddedDocument):
         return self.product_and_attribute.product.id
 
 
-class CartProductDetail(BaseOrderDetail):
+class CartProductDetail(EmbeddedDocument, ProductDetailMixin):
     """
     Store this model in seperate collection
     """
     pass
 
 
-class OrderDetail(BaseOrderDetail):
+class OrderDetail(EmbeddedDocument, ProductDetailMixin):
     """
     Store this model in seperate collection
     """
