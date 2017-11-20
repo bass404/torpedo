@@ -170,3 +170,12 @@ a:link {text-decoration: none;}
   color:#000;
   border-radius: 4px;
 }
+.custom-productdetail-simheader{
+  text-align: center;
+  background: #ef5f21;
+  padding: 10px;
+  color: #fff;
+}
+.custom-productdetail-comment{
+  word-wrap: break-word;
+}
