@@ -1,91 +1,116 @@
 {% extends "base_templates/base.html" %}
 
 {% block container %}
-<div class="banner">
-  <div class="container">
-    <script src="{{ url_for('static', filename='js/responsiveslides.min.js') }}"></script>
-    <script>
-      $(function () {
-        $("#slider").responsiveSlides({
-          auto: true,
-          nav: true,
-          speed: 500,
-          namespace: "callbacks",
-          pager: true,
-        });
-      });
-    </script>
-    <div  id="top" class="callbacks_container">
-      <ul class="rslides" id="slider">
-        <li>
-
-          <div class="banner-text">
-            <h3>Lorem Ipsum is not simply dummy  </h3>
-            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
-            <a href="single.html">Learn More</a>
-          </div>
-
-        </li>
-        <li>
-
-          <div class="banner-text">
-            <h3>There are many variations </h3>
-            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
-            <a href="single.html">Learn More</a>
-
-          </div>
-
-        </li>
-        <li>
-          <div class="banner-text">
-            <h3>Sed ut perspiciatis unde omnis</h3>
-            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
-            <a href="single.html">Learn More</a>
-
-          </div>
-
-        </li>
-      </ul>
+<div class="custom-banner">
+    <div>
+        <script src="{{ url_for('static', filename='js/responsiveslides.min.js') }}"></script>
+        <script>
+          $(function () {
+            $("#slider").responsiveSlides({
+              auto: true,
+              nav: true,
+              speed: 500,
+              namespace: "callbacks",
+              pager: true,
+            });
+          });
+        </script>
+        <div id="top" class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <li class="custom-banner banner1">
+                    <div class="banner-text"></div>
+                </li>
+                <li class="custom-banner banner2">
+                    <div class="banner-text"></div>
+                </li>
+                <li class="custom-banner banner3">
+                    <div class="banner-text"></div>
+                </li>
+                <li class="custom-banner banner4">
+                    <div class="banner-text"></div>
+                </li>
+                <li class="custom-banner banner5">
+                    <div class="banner-text"></div>
+                </li>
+            </ul>
+        </div>
     </div>
-
-  </div>
 </div>
 
 <!--content-->
 <div class="content">
-  <div class="container">
-    <div class="content-top">
-      <h1>NEW RELEASED</h1>
-      <div class="grid-in">
-        {% for product in new_released_products %}
-        <div class="col-md-4 grid-top" style="margin-bottom:1em;">
-          <a href="{{ url_for('product_detail_view', product_id=product.id) }}" class="b-link-stripe b-animate-go  thickbox">
-            <img class="img-responsive" src="{{ product.get_image_url }}" alt="">
-            <div class="b-wrapper">
-              <h3 class="b-animate b-from-left b-delay03 ">
-                <span>{{ product.name }}</span>
-              </h3>
-            </div>
-          </a>
-          <p><a href="{{ url_for('product_detail_view', product_id=product.id) }}">{{ product.get_Description }}</a></p>
-        </div>
-        {% endfor %}
-        <!-- <div class="clearfix"> </div> -->
-      </div>
-    </div>
-    <!----->
-  </div>
+    <div class="container">
+        <div class="content-top">
+            <h4 class="custom-header font-normal">NEW RELEASED</h4>
+            <hr/>
+            <div class="grid-in">
+                {% for product in new_released_products %}
+                <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                    <div class="product-at product-list">
+                        <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
+                            <img class="img-responsive img-custom" src="{{ product.get_image_url }}" alt="">
+                            <div class="pro-grid">
+                                <span class="buy-in">Buy Now</span>
+                            </div>
 
-  <div class="content-bottom">
-    <ul>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo.png') }}" alt=""></a></li>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo1.png') }}" alt=""></a></li>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo2.png') }}" alt=""></a></li>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo3.png') }}" alt=""></a></li>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo4.png') }}" alt=""></a></li>
-      <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo5.png') }}" alt=""></a></li>
-      <div class="clearfix"> </div>
-    </ul>
-  </div>
+                            <!--<div class="b-wrapper">
+                                <h3 class="b-animate b-from-left b-delay03 ">
+                                    <span>{{ product.name }}</span>
+                                </h3>
+                            </div>-->
+                        </a>
+                        <!--<p><a href="{{ url_for('product_detail_view', product_id=product.id) }}">{{
+                            product.get_Description }}</a></p>-->
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- <div class="clearfix"> </div> -->
+            </div>
+        </div>
+        <!-- Best Sellers-->
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+
+        <div class="content-top">
+            <h4 class="custom-header font-normal">BEST SELLERS</h4>
+            <hr/>
+            <div class="grid-in">
+                {% for product in featured %}
+                <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                    <div class="product-at product-list">
+                        <a href="{{ url_for('product_detail_view', product_id=product.id) }}">
+                            <img class="img-responsive img-custom" src="{{ product.get_image_url }}" alt="">
+                            <div class="pro-grid">
+                                <span class="buy-in">Buy Now</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- <div class="clearfix"> </div> -->
+            </div>
+        </div>
+        <!----->
+    </div>
+
+    <div class="content-bottom">
+        <h4 class="custom-header font-normal" align="center">FEATURED BRANDS</h4>
+        <ul>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo.png') }}"
+                                 alt=""></a></li>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo1.png') }}"
+                                 alt=""></a></li>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo2.png') }}"
+                                 alt=""></a></li>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo3.png') }}"
+                                 alt=""></a></li>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo4.png') }}"
+                                 alt=""></a></li>
+            <li><a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/lo5.png') }}"
+                                 alt=""></a></li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
 </div>
 {% endblock %}

@@ -179,3 +179,37 @@ a:link {text-decoration: none;}
 .custom-productdetail-comment{
   word-wrap: break-word;
 }
+.custom-banner{
+  background-size: cover;
+  width: 100%;
+  min-height: 480px;
+  position: relative;
+}
+.banner1{
+  background: url(../images/banner1.jpg) no-repeat;
+}
+.banner2{
+  background: url(../images/banner2.jpg) no-repeat;
+}
+.banner3{
+  background: url(../images/banner3.jpg) no-repeat;
+}
+.banner4{
+  background: url(../images/banner4.jpg) no-repeat;
+}
+.banner5{
+  background: url(../images/banner5.jpg) no-repeat;
+}
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu span {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
