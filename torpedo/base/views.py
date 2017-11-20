@@ -6,7 +6,7 @@ from torpedo.products.helpers import get_products
 
 @torpedo_app.route('/')
 def index():
-    return render_template("base/index.html", new_released_products=get_products(6), featured=get_products(4))
+    return render_template("base/index.html", new_released_products=get_products(6), featured=get_products(3))
 
 
 @torpedo_app.route("/contact")
