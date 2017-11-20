@@ -4,7 +4,7 @@ import time
 
 from torpedo import torpedo_app
 from torpedo.products.models import Product
-from torpedo.orders.models import ProductAndAttribute, CartProductDetail, Cart, OrderDetail, Order, OrderAddress
+from torpedo.orders.models import ProductAndAttribute, ProductDetail, Cart, Order, OrderAddress
 from torpedo.users.models import UserAddress
 from torpedo.users.forms import UserAddressForm
 
@@ -147,8 +147,8 @@ def add_product_to_cart(product_id, attribute_id):
         product_attribute=product_attribute.id
     )
 
-    # Create the CartProductDetail object
-    cart_product_detail = CartProductDetail(
+    # Create the ProductDetail object
+    cart_product_detail = ProductDetail(
         product_and_attribute=product_and_attribute,
         price=product_attribute.price,
         discount=product_attribute.discount
@@ -204,7 +204,7 @@ def add_product_to_order(address_id):
                 attribute.stock = attribute.stock - 1
         product.save()
 
-        order_detail = OrderDetail(id=each_product_attrb.id,
+        order_detail = ProductDetail(id=each_product_attrb.id,
                                    product_and_attribute=each_product_attrb.product_and_attribute,
                                    price=each_product_attrb.price,
                                    discount=each_product_attrb.discount,

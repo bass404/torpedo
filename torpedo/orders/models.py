@@ -18,7 +18,7 @@ class ProductAndAttribute(EmbeddedDocument):
     product_attribute = IntField()
 
 
-class ProductDetailMixin():
+class ProductDetail(EmbeddedDocument):
     """
     No collection will be created for this model
     """
@@ -30,10 +30,6 @@ class ProductDetailMixin():
     price = FloatField(required=True)
     discount = FloatField(default=0.0)
     quantity = IntField(default=1)
-
-    meta = {
-        "abstract": True,
-    }
 
     @property
     def get_display_name(self):
@@ -51,20 +47,6 @@ class ProductDetailMixin():
 
     def get_product_id(self):
         return self.product_and_attribute.product.id
-
-
-class CartProductDetail(EmbeddedDocument, ProductDetailMixin):
-    """
-    Store this model in seperate collection
-    """
-    pass
-
-
-class OrderDetail(EmbeddedDocument, ProductDetailMixin):
-    """
-    Store this model in seperate collection
-    """
-    pass
 
 
 class PriceDetailsMixin():
@@ -113,7 +95,7 @@ class Cart(Document, PriceDetailsMixin):
     """
 
     user = ReferenceField("users.User")
-    product_details = EmbeddedDocumentListField(CartProductDetail)
+    product_details = EmbeddedDocumentListField(ProductDetail)
 
 
 class OrderAddress(EmbeddedDocument, AddressMixin):
@@ -126,7 +108,7 @@ class Order(Document, PriceDetailsMixin):
     """
 
     user = ReferenceField("users.User")
-    product_details = EmbeddedDocumentListField(OrderDetail)
+    product_details = EmbeddedDocumentListField(ProductDetail)
     status = StringField()
     address = EmbeddedDocumentField(OrderAddress)
     # Don't use function call directly
